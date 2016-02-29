@@ -2,6 +2,9 @@
 
 buildscript {
     repositories {
+        // 其含义为优先在本地仓库和开源中国maven仓库搜寻jar或者aar包。
+        mavenLocal()
+        maven{ url 'http://maven.oschina.net/content/groups/public/'}
         jcenter()
     }
     dependencies {
@@ -14,6 +17,9 @@ buildscript {
 
 allprojects {
     repositories {
+        // 其含义为优先在本地仓库和开源中国maven仓库搜寻jar或者aar包。
+        mavenLocal()
+        maven{ url 'http://maven.oschina.net/content/groups/public/'}
         jcenter()
     }
 }
