@@ -1,1 +1,1 @@
-include ':app', ':library', ':android-universal-image-loader'
+include ':app', ':library', ':android-universal-image-loader', ':photoselector'

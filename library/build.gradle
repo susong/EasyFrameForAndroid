@@ -7,4 +7,5 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     // https://github.com/loopj/android-async-http
     compile project(':android-universal-image-loader')
+    compile project(':photoselector')
 }
