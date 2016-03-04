@@ -5,12 +5,12 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.dream.photoselector.R;
 import com.dream.photoselector.model.PhotoModel;
@@ -20,9 +20,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @author Aizaz AZ
  */
 
-public class PhotoItem extends LinearLayout implements OnCheckedChangeListener,
-        OnLongClickListener {
+public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, View.OnLongClickListener, View.OnClickListener {
 
+    private Context mContext;
     private ImageView ivPhoto;
     private CheckBox cbPhoto;
     private onPhotoItemCheckedListener listener;
@@ -33,25 +33,31 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener,
 
     private PhotoItem(Context context) {
         super(context);
+        this.mContext = context;
     }
 
     public PhotoItem(Context context, onPhotoItemCheckedListener listener) {
         this(context);
-        LayoutInflater.from(context).inflate(R.layout.layout_photoitem, this,
-                true);
-        this.listener = listener;
-
-        setOnLongClickListener(this);
+        LayoutInflater.from(context).inflate(R.layout.layout_photoitem, this, true);
 
         ivPhoto = (ImageView) findViewById(R.id.iv_photo_lpsi);
         cbPhoto = (CheckBox) findViewById(R.id.cb_photo_lpsi);
 
+        this.listener = listener;
+
+        setOnClickListener(this);
+        setOnLongClickListener(this);
         cbPhoto.setOnCheckedChangeListener(this); // CheckBox选中状态改变监听器
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (!isCheckAll) {
+            if (isChecked && PhotoSelectorActivity.sIsFull) {
+                Toast.makeText(mContext, String.format(mContext.getString(R.string.max_img_limit_reached), PhotoSelectorActivity.sMaxImageSize), Toast.LENGTH_SHORT).show();
+                cbPhoto.setChecked(false);
+                return;
+            }
             listener.onCheckedChanged(photo, buttonView, isChecked); // 调用主界面回调函数
         }
         // 让图片变暗或者变亮
@@ -71,15 +77,14 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener,
         this.photo = photo;
         // You may need this setting form some custom ROM(s)
         /*
-		 * new Handler().postDelayed(new Runnable() {
+         * new Handler().postDelayed(new Runnable() {
 		 * 
 		 * @Override public void run() { ImageLoader.getInstance().displayImage(
 		 * "file://" + photo.getOriginalPath(), ivPhoto); } }, new
 		 * Random().nextInt(10));
 		 */
 
-        ImageLoader.getInstance().displayImage(
-                "file://" + photo.getOriginalPath(), ivPhoto);
+        ImageLoader.getInstance().displayImage("file://" + photo.getOriginalPath(), ivPhoto);
     }
 
     private void setDrawingable() {
@@ -102,32 +107,44 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener,
         this.position = position;
     }
 
-    // @Override
-    // public void
-    // onClick(View v) {
-    // if (l != null)
-    // l.onItemClick(position);
-    // }
 
     /**
      * 图片Item选中事件监听器
      */
-    public static interface onPhotoItemCheckedListener {
-        public void onCheckedChanged(PhotoModel photoModel,
-                                     CompoundButton buttonView, boolean isChecked);
+    public interface onPhotoItemCheckedListener {
+        void onCheckedChanged(PhotoModel photoModel, CompoundButton buttonView, boolean isChecked);
     }
 
     /**
      * 图片点击事件
      */
     public interface onItemClickListener {
-        public void onItemClick(int position);
+        void onItemClick(int position);
     }
 
+    /**
+     * 点击
+     *
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        if (l != null) {
+            l.onItemClick(position);
+        }
+    }
+
+    /**
+     * 长按
+     *
+     * @param v
+     * @return
+     */
     @Override
     public boolean onLongClick(View v) {
-        if (l != null)
+        if (l != null) {
             l.onItemClick(position);
+        }
         return true;
     }
 

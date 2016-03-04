@@ -10,11 +10,11 @@
         android:layout_height="match_parent" />
 
     <RelativeLayout
-        android:id="@+id/layout_top_app"
+        android:id="@+id/photo_preview_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_title_heigh"
         android:layout_alignParentTop="true"
-        android:background="@color/bg" >
+        android:background="@color/ps_background" >
 
         <ImageButton
             android:id="@+id/btn_back_app"

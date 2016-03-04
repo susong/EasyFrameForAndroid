@@ -1,0 +1,6 @@
+<resources>
+    <style name="anim_popup_dir">
+        <item name="android:windowEnterAnimation">@anim/edit_photo_pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/edit_photo_pop_exit</item>
+    </style>
+</resources>

@@ -2,28 +2,38 @@ package com.dream.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
-import com.dream.photoselector.ui.PhotoSelectorActivity;
+import com.dream.library.view.PhotoSelectorSampleActivity;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+
+    @Bind(R.id.btn_photo_selector)
+    Button mBtnPhotoSelector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
+    }
 
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                Intent intent = new Intent(MainActivity.this, PhotoSelectorActivity.class);
-                intent.putExtra(PhotoSelectorActivity.KEY_MAX, 9);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivityForResult(intent, 1);
-            }
-        }, 3000);
+    @OnClick({
+            R.id.btn_photo_selector
+    })
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_photo_selector:
+                Intent intent = new Intent(this, PhotoSelectorSampleActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

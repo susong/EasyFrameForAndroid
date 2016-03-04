@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/base_bg"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="可添加图片(最多可上传9张,点击图片可直接编辑美图,添加标签)"
+                android:textColor="#777777"
+                android:textSize="12sp">
+            </TextView>
+
+            <com.dream.library.view.XGridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:horizontalSpacing="2dp"
+                android:numColumns="3"
+                android:padding="0dp"
+                android:scrollbars="none"
+                android:verticalSpacing="2dp">
+            </com.dream.library.view.XGridView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

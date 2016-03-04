@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 选择相册  相机条目选择 -->
+    <item android:state_pressed="true"><shape android:shape="rectangle">
+            <solid android:color="@color/whitesmoke" />
+
+            <corners android:bottomLeftRadius="0dp" android:bottomRightRadius="0dp" android:topLeftRadius="10dp" android:topRightRadius="10dp" />
+        </shape></item>
+    <item><shape android:shape="rectangle">
+            <solid android:color="@color/white" />
+
+            <corners android:bottomLeftRadius="0dp" android:bottomRightRadius="0dp" android:topLeftRadius="10dp" android:topRightRadius="10dp" />
+        </shape></item>
+
+</selector>

@@ -8,6 +8,6 @@
     <string name="select_photos">选择照片</string>
     <string name="back">返回</string>
     <string name="taking_pictures">拍摄照片</string>
-    <string name="max_img_limit_reached">不能选择超过%d个图像</string>
+    <string name="max_img_limit_reached">你最多只能选择%d张照片</string>
 
 </resources>
