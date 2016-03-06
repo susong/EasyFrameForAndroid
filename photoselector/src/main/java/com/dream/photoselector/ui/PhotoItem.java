@@ -124,8 +124,6 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
 
     /**
      * 点击
-     *
-     * @param v
      */
     @Override
     public void onClick(View v) {
@@ -136,9 +134,6 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
 
     /**
      * 长按
-     *
-     * @param v
-     * @return
      */
     @Override
     public boolean onLongClick(View v) {

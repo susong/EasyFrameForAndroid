@@ -41,6 +41,7 @@ import java.util.List;
 
 public class PhotoSelectorActivity extends Activity {
 
+
     public static final int SINGLE_IMAGE = 1;
     public static final String KEY_MAX_SIZE = "key_max_size";
     public static final String KEY_CURRENT_SIZE = "key_current_size";
