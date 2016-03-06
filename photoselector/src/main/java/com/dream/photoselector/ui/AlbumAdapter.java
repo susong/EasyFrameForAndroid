@@ -15,7 +15,7 @@ public class AlbumAdapter extends PsBaseAdapter<AlbumModel> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        AlbumItem albumItem = null;
+        AlbumItem albumItem;
         if (convertView == null) {
             albumItem = new AlbumItem(mContext);
             convertView = albumItem;

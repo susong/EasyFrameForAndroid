@@ -23,88 +23,84 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, View.OnLongClickListener, View.OnClickListener {
 
     private Context mContext;
-    private ImageView ivPhoto;
-    private CheckBox cbPhoto;
-    private onPhotoItemCheckedListener listener;
-    private PhotoModel photo;
-    private boolean isCheckAll;
-    private onItemClickListener l;
-    private int position;
+    private ImageView mIvPhoto;
+    private CheckBox mCbPhoto;
+    private onPhotoItemCheckedListener mOnPhotoItemCheckedListener;
+    private PhotoModel mPhotoModel;
+    private boolean mIsCheckAll;
+    private onItemClickListener mOnItemClickListener;
+    private int mPosition;
 
     private PhotoItem(Context context) {
         super(context);
         this.mContext = context;
     }
 
-    public PhotoItem(Context context, onPhotoItemCheckedListener listener) {
+    public PhotoItem(Context context, onPhotoItemCheckedListener onPhotoItemCheckedListener) {
         this(context);
         LayoutInflater.from(context).inflate(R.layout.ps_item_photo, this, true);
 
-        ivPhoto = (ImageView) findViewById(R.id.iv_photo_ps);
-        cbPhoto = (CheckBox) findViewById(R.id.cb_photo_ps);
+        mIvPhoto = (ImageView) findViewById(R.id.iv_photo_ps);
+        mCbPhoto = (CheckBox) findViewById(R.id.cb_photo_ps);
 
-        this.listener = listener;
+        this.mOnPhotoItemCheckedListener = onPhotoItemCheckedListener;
 
         setOnClickListener(this);
         setOnLongClickListener(this);
-        cbPhoto.setOnCheckedChangeListener(this); // CheckBox选中状态改变监听器
+        mCbPhoto.setOnCheckedChangeListener(this); // CheckBox选中状态改变监听器
     }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (!isCheckAll) {
+        if (!mIsCheckAll) {
             if (isChecked && PhotoSelectorActivity.mIsFull) {
                 Toast.makeText(mContext, String.format(mContext.getString(R.string.ps_max_img_limit_reached), PhotoSelectorActivity.mMaxSize), Toast.LENGTH_SHORT).show();
-                cbPhoto.setChecked(false);
+                mCbPhoto.setChecked(false);
                 return;
             }
-            listener.onCheckedChanged(photo, buttonView, isChecked); // 调用主界面回调函数
+            mOnPhotoItemCheckedListener.onCheckedChanged(mPhotoModel, buttonView, isChecked); // 调用主界面回调函数
         }
         // 让图片变暗或者变亮
         if (isChecked) {
-            setDrawingable();
-            ivPhoto.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+            mIvPhoto.setDrawingCacheEnabled(true);
+            mIvPhoto.buildDrawingCache();
+            mIvPhoto.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         } else {
-            ivPhoto.clearColorFilter();
+            mIvPhoto.clearColorFilter();
         }
-        photo.setChecked(isChecked);
+        mPhotoModel.setChecked(isChecked);
     }
 
     /**
      * 设置路径下的图片对应的缩略图
      */
     public void setImageDrawable(final PhotoModel photo) {
-        this.photo = photo;
+        this.mPhotoModel = photo;
         // You may need this setting form some custom ROM(s)
         /*
          * new Handler().postDelayed(new Runnable() {
 		 * 
 		 * @Override public void run() { ImageLoader.getInstance().displayImage(
-		 * "file://" + photo.getOriginalPath(), ivPhoto); } }, new
+		 * "file://" + mPhotoModel.getOriginalPath(), mIvPhoto); } }, new
 		 * Random().nextInt(10));
 		 */
 
-        ImageLoader.getInstance().displayImage("file://" + photo.getOriginalPath(), ivPhoto);
-    }
-
-    private void setDrawingable() {
-        ivPhoto.setDrawingCacheEnabled(true);
-        ivPhoto.buildDrawingCache();
+        ImageLoader.getInstance().displayImage("file://" + photo.getOriginalPath(), mIvPhoto);
     }
 
     @Override
     public void setSelected(boolean selected) {
-        if (photo == null) {
+        if (mPhotoModel == null) {
             return;
         }
-        isCheckAll = true;
-        cbPhoto.setChecked(selected);
-        isCheckAll = false;
+        mIsCheckAll = true;
+        mCbPhoto.setChecked(selected);
+        mIsCheckAll = false;
     }
 
     public void setOnClickListener(onItemClickListener l, int position) {
-        this.l = l;
-        this.position = position;
+        this.mOnItemClickListener = l;
+        this.mPosition = position;
     }
 
 
@@ -127,8 +123,8 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
      */
     @Override
     public void onClick(View v) {
-        if (l != null) {
-            l.onItemClick(position);
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClick(mPosition);
         }
     }
 
@@ -137,8 +133,8 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
      */
     @Override
     public boolean onLongClick(View v) {
-        if (l != null) {
-            l.onItemClick(position);
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClick(mPosition);
         }
         return true;
     }

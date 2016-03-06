@@ -23,17 +23,17 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 public class PhotoPreview extends LinearLayout implements OnClickListener {
 
-	private ProgressBar pbLoading;
-	private GestureImageView ivContent;
-	private OnClickListener l;
+	private ProgressBar mPbLoading;
+	private GestureImageView mIvContent;
+	private OnClickListener mOnClickListener;
 
 	public PhotoPreview(Context context) {
 		super(context);
 		LayoutInflater.from(context).inflate(R.layout.ps_view_photo_preview, this, true);
 
-		pbLoading = (ProgressBar) findViewById(R.id.pb_loading_ps);
-		ivContent = (GestureImageView) findViewById(R.id.iv_content_ps);
-		ivContent.setOnClickListener(this);
+		mPbLoading = (ProgressBar) findViewById(R.id.pb_loading_ps);
+		mIvContent = (GestureImageView) findViewById(R.id.iv_content_ps);
+		mIvContent.setOnClickListener(this);
 	}
 
 	public PhotoPreview(Context context, AttributeSet attrs, int defStyle) {
@@ -52,27 +52,27 @@ public class PhotoPreview extends LinearLayout implements OnClickListener {
 		ImageLoader.getInstance().loadImage(path, new SimpleImageLoadingListener() {
 			@Override
 			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-				ivContent.setImageBitmap(loadedImage);
-				pbLoading.setVisibility(View.GONE);
+				mIvContent.setImageBitmap(loadedImage);
+				mPbLoading.setVisibility(View.GONE);
 			}
 
 			@Override
 			public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-				ivContent.setImageDrawable(getResources().getDrawable(R.drawable.ps_picture_loadfailed));
-				pbLoading.setVisibility(View.GONE);
+				mIvContent.setImageDrawable(getResources().getDrawable(R.drawable.ps_picture_loadfailed));
+				mPbLoading.setVisibility(View.GONE);
 			}
 		});
 	}
 
 	@Override
 	public void setOnClickListener(OnClickListener l) {
-		this.l = l;
+		this.mOnClickListener = l;
 	}
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.iv_content_ps && l != null)
-			l.onClick(ivContent);
+		if (v.getId() == R.id.iv_content_ps && mOnClickListener != null)
+			mOnClickListener.onClick(mIvContent);
 	};
 
 }

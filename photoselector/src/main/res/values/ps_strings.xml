@@ -4,10 +4,11 @@
     <string name="ps_more_than_max">Exceeds the upper limit</string>
     <string name="ps_preview">Preview</string>
     <string name="ps_recent_photos">Recent photos</string>
-    <string name="ps_confirm">Sure</string>
+    <string name="ps_confirm">Confirm</string>
     <string name="ps_select_photos">Select photos</string>
     <string name="ps_back">Back</string>
     <string name="ps_taking_pictures">Taking Pictures</string>
-    <string name="ps_max_img_limit_reached">Cannot select more than %d images</string>
-
+    <string name="ps_max_img_limit_reached">You can only choose %d photos at most</string>
+    <string name="ps_check">check</string>
+    <string name="ps_size">Size</string>
 </resources>

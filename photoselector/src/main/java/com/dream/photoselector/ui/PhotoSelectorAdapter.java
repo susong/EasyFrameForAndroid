@@ -17,10 +17,10 @@ import com.dream.photoselector.model.PhotoModel;
 
 public class PhotoSelectorAdapter extends PsBaseAdapter<PhotoModel> {
 
-    private int itemWidth;
-    private int horizontalNum = 3;
+    private int mItemWidth;
+    private int mHorizontalNum = 3;
     private PhotoItem.onPhotoItemCheckedListener mOnPhotoItemCheckedListener;
-    private LayoutParams itemLayoutParams;
+    private LayoutParams mPhotoItemLayoutParams;
     private PhotoItem.onItemClickListener mOnItemClickListener;
     private OnClickListener mCameraOnClickListener;
 
@@ -44,8 +44,8 @@ public class PhotoSelectorAdapter extends PsBaseAdapter<PhotoModel> {
      */
     public void setItemWidth(int screenWidth) {
         int horizontalSpace = mContext.getResources().getDimensionPixelSize(R.dimen.ps_sticky_item_horizontalSpacing);
-        this.itemWidth = (screenWidth - (horizontalSpace * (horizontalNum - 1))) / horizontalNum;
-        this.itemLayoutParams = new LayoutParams(itemWidth, itemWidth);
+        this.mItemWidth = (screenWidth - (horizontalSpace * (mHorizontalNum - 1))) / mHorizontalNum;
+        this.mPhotoItemLayoutParams = new LayoutParams(mItemWidth, mItemWidth);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class PhotoSelectorAdapter extends PsBaseAdapter<PhotoModel> {
         PhotoItem item = null;
         if (convertView == null || !(convertView instanceof PhotoItem)) {
             item = new PhotoItem(mContext, mOnPhotoItemCheckedListener);
-            item.setLayoutParams(itemLayoutParams);
+            item.setLayoutParams(mPhotoItemLayoutParams);
             convertView = item;
         } else {
             item = (PhotoItem) convertView;

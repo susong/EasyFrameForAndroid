@@ -55,16 +55,16 @@ public class PhotoSelectorActivity extends Activity {
     public static boolean mIsFull;
     public static int mMaxSize = 0;
     private int mCurrentSize = 0;
-    private String sure;
+    private String mSureStr;
 
-    private GridView gvPhotos;
-    private ListView lvAlbum;
-    private Button btnOk;
-    private TextView tvAlbum, tvPreview, tvTitle;
+    private GridView mGvPhotos;
+    private ListView mLvAlbum;
+    private Button mBtnConfirm;
+    private TextView mTvAlbum, mTvPreview, mTvTitle;
     private PhotoSelectorDomain mPhotoSelectorDomain;
     private PhotoSelectorAdapter mPhotoSelectorAdapter;
     private AlbumAdapter mAlbumAdapter;
-    private RelativeLayout layoutAlbum;
+    private RelativeLayout mLayoutAlbum;
     public static List<PhotoModel> mPhotoModelList = new ArrayList<PhotoModel>();
     public static List<PhotoModel> mPhotoModelSelectorList = new ArrayList<PhotoModel>();
 
@@ -83,35 +83,35 @@ public class PhotoSelectorActivity extends Activity {
     }
 
     private void initView() {
-        layoutAlbum = (RelativeLayout) findViewById(R.id.layout_album_ps);
-        tvTitle = (TextView) findViewById(R.id.tv_title_ps);
-        gvPhotos = (GridView) findViewById(R.id.gv_photos_ps);
-        lvAlbum = (ListView) findViewById(R.id.lv_album_ps);
-        btnOk = (Button) findViewById(R.id.btn_confirm_ps);
-        tvAlbum = (TextView) findViewById(R.id.tv_album_ps);
-        tvPreview = (TextView) findViewById(R.id.tv_preview_ps);
+        mLayoutAlbum = (RelativeLayout) findViewById(R.id.layout_album_ps);
+        mTvTitle = (TextView) findViewById(R.id.tv_title_ps);
+        mGvPhotos = (GridView) findViewById(R.id.gv_photos_ps);
+        mLvAlbum = (ListView) findViewById(R.id.lv_album_ps);
+        mBtnConfirm = (Button) findViewById(R.id.btn_confirm_ps);
+        mTvAlbum = (TextView) findViewById(R.id.tv_album_ps);
+        mTvPreview = (TextView) findViewById(R.id.tv_preview_ps);
 
         mRecentPhotoStr = getResources().getString(R.string.ps_recent_photos);
-        sure = getResources().getString(R.string.ps_confirm);
+        mSureStr = getResources().getString(R.string.ps_confirm);
 
         int currentSize = mCurrentSize + mPhotoModelSelectorList.size();
-        btnOk.setText(sure + "(" + currentSize + "/" + mMaxSize + ")");
+        mBtnConfirm.setText(mSureStr + "(" + currentSize + "/" + mMaxSize + ")");
     }
 
     private void initListener() {
-        btnOk.setOnClickListener(new OnClickListener() {
+        mBtnConfirm.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ok(); // 选完照片
             }
         });
-        tvAlbum.setOnClickListener(new OnClickListener() {
+        mTvAlbum.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 album();
             }
         });
-        tvPreview.setOnClickListener(new OnClickListener() {
+        mTvPreview.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 /**
@@ -129,7 +129,7 @@ public class PhotoSelectorActivity extends Activity {
         /**
          * 相册列表点击事件
          */
-        lvAlbum.setOnItemClickListener(new OnItemClickListener() {
+        mLvAlbum.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlbumModel current = (AlbumModel) parent.getItemAtPosition(position);
@@ -142,8 +142,8 @@ public class PhotoSelectorActivity extends Activity {
                 }
                 mAlbumAdapter.notifyDataSetChanged();
                 hideAlbum();
-                tvAlbum.setText(current.getName());
-                // tvTitle.setText(current.getName());
+                mTvAlbum.setText(current.getName());
+                // mTvTitle.setText(current.getName());
 
                 // 更新照片列表
                 if (current.getName().equals(mRecentPhotoStr)) {
@@ -189,13 +189,13 @@ public class PhotoSelectorActivity extends Activity {
                             if (!mPhotoModelSelectorList.contains(photoModel)) {
                                 mPhotoModelSelectorList.add(photoModel);
                             }
-                            tvPreview.setEnabled(true);
+                            mTvPreview.setEnabled(true);
                         } else {
                             mPhotoModelSelectorList.remove(photoModel);
                         }
 
                         int currentSize = mCurrentSize + mPhotoModelSelectorList.size();
-                        btnOk.setText(sure + "(" + currentSize + "/" + mMaxSize + ")");
+                        mBtnConfirm.setText(mSureStr + "(" + currentSize + "/" + mMaxSize + ")");
                         if (currentSize >= mMaxSize) {
                             mIsFull = true;
                         } else {
@@ -203,8 +203,8 @@ public class PhotoSelectorActivity extends Activity {
                         }
 
                         if (mPhotoModelSelectorList.isEmpty()) {
-                            tvPreview.setEnabled(false);
-                            tvPreview.setText(getString(R.string.ps_preview));
+                            mTvPreview.setEnabled(false);
+                            mTvPreview.setText(getString(R.string.ps_preview));
                         }
                     }
                 },
@@ -215,7 +215,7 @@ public class PhotoSelectorActivity extends Activity {
                     @Override
                     public void onItemClick(int position) {
                         Bundle bundle = new Bundle();
-                        if (tvAlbum.getText().toString().equals(mRecentPhotoStr)) {
+                        if (mTvAlbum.getText().toString().equals(mRecentPhotoStr)) {
                             bundle.putInt(KEY_POSITION, position);
                         } else {
                             bundle.putInt(KEY_POSITION, position);
@@ -234,10 +234,10 @@ public class PhotoSelectorActivity extends Activity {
                         catchPicture();
                     }
                 });
-        gvPhotos.setAdapter(mPhotoSelectorAdapter);
+        mGvPhotos.setAdapter(mPhotoSelectorAdapter);
 
         mAlbumAdapter = new AlbumAdapter(getApplicationContext());
-        lvAlbum.setAdapter(mAlbumAdapter);
+        mLvAlbum.setAdapter(mAlbumAdapter);
     }
 
     private void initData() {
@@ -280,10 +280,12 @@ public class PhotoSelectorActivity extends Activity {
         for (PhotoModel photoModel : photoModelList) {
             if (mPhotoModelSelectorList.contains(photoModel)) {
                 photoModel.setChecked(true);
+            } else {
+                photoModel.setChecked(false);
             }
         }
         mPhotoSelectorAdapter.updateAdapter(photoModelList);
-        gvPhotos.smoothScrollToPosition(0); // 滚动到顶端
+        mGvPhotos.smoothScrollToPosition(0); // 滚动到顶端
         // reset(); //--keep mPhotoModelSelectorList mPhotoModelSelectorList
     }
 
@@ -295,9 +297,9 @@ public class PhotoSelectorActivity extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (resultCode == RESULT_OK && requestCode == PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_CAMERA) {
-            PhotoModel photoModel = new PhotoModel(PsCommonUtils.query(getApplicationContext(), data.getData()));
+            PhotoModel photoModel = new PhotoModel(PsCommonUtils.query(getApplicationContext(), intent.getData()));
 
             if (mPhotoModelSelectorList.size() >= mMaxSize) {
                 Toast.makeText(this, String.format(getString(R.string.ps_max_img_limit_reached), mMaxSize), Toast.LENGTH_SHORT).show();
@@ -310,44 +312,31 @@ public class PhotoSelectorActivity extends Activity {
             }
             ok();
         } else if (resultCode == PsConstants.PHOTO_PREVIEW_RESULT_CODE_CONFIRM && requestCode == PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_PREVIEW) {
-            mPhotoModelSelectorList = data.getParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST);
-
-            for (PhotoModel photoModel : mPhotoModelList) {
-                if (mPhotoModelSelectorList.contains(photoModel)) {
-                    photoModel.setChecked(true);
-                } else {
-                    photoModel.setChecked(false);
-                }
-            }
-            mPhotoSelectorAdapter.updateAdapter(mPhotoModelList);
-
-            int currentSize = mCurrentSize + mPhotoModelSelectorList.size();
-            if (currentSize >= mMaxSize) {
-                mIsFull = true;
-            } else {
-                mIsFull = false;
-            }
-            btnOk.setText(sure + "(" + currentSize + "/" + mMaxSize + ")");
+            dealPhotoModelSelectorList(intent);
             ok();
         } else if (resultCode == PsConstants.PHOTO_PREVIEW_RESULT_CODE_BACK && requestCode == PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_PREVIEW) {
-            mPhotoModelSelectorList = data.getParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST);
-            for (PhotoModel photoModel : mPhotoModelList) {
-                if (mPhotoModelSelectorList.contains(photoModel)) {
-                    photoModel.setChecked(true);
-                } else {
-                    photoModel.setChecked(false);
-                }
-            }
-            mPhotoSelectorAdapter.updateAdapter(mPhotoModelList);
-
-            int currentSize = mCurrentSize + mPhotoModelSelectorList.size();
-            if (currentSize >= mMaxSize) {
-                mIsFull = true;
-            } else {
-                mIsFull = false;
-            }
-            btnOk.setText(sure + "(" + currentSize + "/" + mMaxSize + ")");
+            dealPhotoModelSelectorList(intent);
         }
+    }
+
+    private void dealPhotoModelSelectorList(Intent intent) {
+        mPhotoModelSelectorList = intent.getParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST);
+        for (PhotoModel photoModel : mPhotoModelList) {
+            if (mPhotoModelSelectorList.contains(photoModel)) {
+                photoModel.setChecked(true);
+            } else {
+                photoModel.setChecked(false);
+            }
+        }
+        mPhotoSelectorAdapter.updateAdapter(mPhotoModelList);
+
+        int currentSize = mCurrentSize + mPhotoModelSelectorList.size();
+        if (currentSize >= mMaxSize) {
+            mIsFull = true;
+        } else {
+            mIsFull = false;
+        }
+        mBtnConfirm.setText(mSureStr + "(" + currentSize + "/" + mMaxSize + ")");
     }
 
     /**
@@ -366,7 +355,7 @@ public class PhotoSelectorActivity extends Activity {
     }
 
     private void album() {
-        if (layoutAlbum.getVisibility() == View.GONE) {
+        if (mLayoutAlbum.getVisibility() == View.GONE) {
             popAlbum();
         } else {
             hideAlbum();
@@ -377,9 +366,9 @@ public class PhotoSelectorActivity extends Activity {
      * 弹出相册列表
      */
     private void popAlbum() {
-        layoutAlbum.setVisibility(View.VISIBLE);
+        mLayoutAlbum.setVisibility(View.VISIBLE);
         new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_album_list_translate_up)
-                .setLinearInterpolator().startAnimation(layoutAlbum);
+                .setLinearInterpolator().startAnimation(mLayoutAlbum);
     }
 
     /**
@@ -387,8 +376,8 @@ public class PhotoSelectorActivity extends Activity {
      */
     private void hideAlbum() {
         new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_album_list_translate_down)
-                .setLinearInterpolator().startAnimation(layoutAlbum);
-        layoutAlbum.setVisibility(View.GONE);
+                .setLinearInterpolator().startAnimation(mLayoutAlbum);
+        mLayoutAlbum.setVisibility(View.GONE);
     }
 
     /**
@@ -396,8 +385,8 @@ public class PhotoSelectorActivity extends Activity {
      */
     private void reset() {
         mPhotoModelSelectorList.clear();
-        btnOk.setText(sure + "(" + 0 + "/" + mMaxSize + ")");
-        tvPreview.setEnabled(false);
+        mBtnConfirm.setText(mSureStr + "(" + 0 + "/" + mMaxSize + ")");
+        mTvPreview.setEnabled(false);
     }
 
     private void clear() {
@@ -407,7 +396,7 @@ public class PhotoSelectorActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (layoutAlbum.getVisibility() == View.VISIBLE) {
+        if (mLayoutAlbum.getVisibility() == View.VISIBLE) {
             hideAlbum();
         } else
             super.onBackPressed();

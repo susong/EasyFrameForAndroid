@@ -3,5 +3,6 @@
 
     <color name="ps_background">#1C1F23</color>
     <color name="ps_transparent_background">#E61C1F23</color>
-    <color name="ps_transparent">#00000000</color><!--透明色 -->
+    <color name="ps_transparent">#00000000</color>
+    <color name="ps_gray">#808080</color>
 </resources>
