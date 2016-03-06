@@ -38,7 +38,7 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
 
     public PhotoItem(Context context, onPhotoItemCheckedListener listener) {
         this(context);
-        LayoutInflater.from(context).inflate(R.layout.item_photo, this, true);
+        LayoutInflater.from(context).inflate(R.layout.ps_item_photo, this, true);
 
         ivPhoto = (ImageView) findViewById(R.id.iv_photo_ps);
         cbPhoto = (CheckBox) findViewById(R.id.cb_photo_ps);

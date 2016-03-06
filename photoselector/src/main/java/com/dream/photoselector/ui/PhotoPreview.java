@@ -29,7 +29,7 @@ public class PhotoPreview extends LinearLayout implements OnClickListener {
 
 	public PhotoPreview(Context context) {
 		super(context);
-		LayoutInflater.from(context).inflate(R.layout.view_photo_preview, this, true);
+		LayoutInflater.from(context).inflate(R.layout.ps_view_photo_preview, this, true);
 
 		pbLoading = (ProgressBar) findViewById(R.id.pb_loading_ps);
 		ivContent = (GestureImageView) findViewById(R.id.iv_content_ps);
