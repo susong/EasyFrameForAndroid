@@ -38,10 +38,10 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
 
     public PhotoItem(Context context, onPhotoItemCheckedListener listener) {
         this(context);
-        LayoutInflater.from(context).inflate(R.layout.layout_photoitem, this, true);
+        LayoutInflater.from(context).inflate(R.layout.item_photo, this, true);
 
-        ivPhoto = (ImageView) findViewById(R.id.iv_photo_lpsi);
-        cbPhoto = (CheckBox) findViewById(R.id.cb_photo_lpsi);
+        ivPhoto = (ImageView) findViewById(R.id.iv_photo_ps);
+        cbPhoto = (CheckBox) findViewById(R.id.cb_photo_ps);
 
         this.listener = listener;
 
@@ -54,7 +54,7 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (!isCheckAll) {
             if (isChecked && PhotoSelectorActivity.mIsFull) {
-                Toast.makeText(mContext, String.format(mContext.getString(R.string.max_img_limit_reached), PhotoSelectorActivity.mMaxSize), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, String.format(mContext.getString(R.string.ps_max_img_limit_reached), PhotoSelectorActivity.mMaxSize), Toast.LENGTH_SHORT).show();
                 cbPhoto.setChecked(false);
                 return;
             }

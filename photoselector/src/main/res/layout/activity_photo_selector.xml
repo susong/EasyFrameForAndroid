@@ -5,14 +5,14 @@
                 android:background="@android:color/black">
 
     <RelativeLayout
-        android:id="@+id/photo_selector_toolbar"
+        android:id="@+id/photo_selector_toolbar_ps"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_title_height"
+        android:layout_height="@dimen/ps_layout_title_height"
         android:layout_alignParentTop="true"
         android:background="@color/ps_background">
 
         <LinearLayout
-            android:id="@+id/ll_back"
+            android:id="@+id/layout_back_ps"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -21,46 +21,46 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/iv_back"
+                android:id="@+id/iv_back_ps"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/layout_title_content_height"
+                android:layout_height="@dimen/ps_layout_title_content_height"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/arrow"/>
+                android:src="@drawable/ps_back_arrow"/>
 
             <TextView
-                android:id="@+id/tv_back"
+                android:id="@+id/tv_back_ps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                android:text="@string/back"
+                android:text="@string/ps_back"
                 android:textColor="#FEFEFE"
-                android:textSize="@dimen/layout_title_mini_text_size"
+                android:textSize="@dimen/ps_layout_title_mini_text_size"
                 android:visibility="invisible"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title_ps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_vertical"
-            android:text="@string/select_photos"
+            android:text="@string/ps_select_photos"
             android:textColor="@android:color/white"
             android:textSize="18sp"/>
 
         <Button
-            android:id="@+id/btn_right_lh"
+            android:id="@+id/btn_confirm_ps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@color/ps_background"
             android:padding="5dp"
-            android:text="@string/sure"
+            android:text="@string/ps_confirm"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/layout_title_mini_text_size"/>
+            android:textSize="@dimen/ps_layout_title_mini_text_size"/>
 
     </RelativeLayout>
 
@@ -68,30 +68,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/layout_toolbar_ar"
-        android:layout_below="@+id/photo_selector_toolbar">
+        android:layout_below="@+id/photo_selector_toolbar_ps">
 
         <GridView
-            android:id="@+id/gv_photos_ar"
+            android:id="@+id/gv_photos_ps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/black"
             android:clipToPadding="true"
-            android:horizontalSpacing="@dimen/sticky_item_horizontalSpacing"
+            android:horizontalSpacing="@dimen/ps_sticky_item_horizontalSpacing"
             android:listSelector="@null"
             android:numColumns="3"
             android:scrollbars="none"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="@dimen/sticky_item_verticalSpacing"/>
+            android:verticalSpacing="@dimen/ps_sticky_item_verticalSpacing"/>
 
         <RelativeLayout
-            android:id="@+id/layout_album_ar"
+            android:id="@+id/layout_album_ps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_dark_translucent"
+            android:background="@drawable/ps_bg_dark_translucent"
             android:visibility="gone">
 
             <ListView
-                android:id="@+id/lv_ablum_ar"
+                android:id="@+id/lv_album_ps"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="60dp"
@@ -106,7 +106,7 @@
     <RelativeLayout
         android:id="@+id/layout_toolbar_ar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/collection_photo_toolbar_height"
+        android:layout_height="@dimen/ps_collection_photo_toolbar_height"
         android:layout_alignParentBottom="true"
         android:background="@color/ps_background">
 
@@ -116,15 +116,15 @@
             android:layout_centerVertical="true">
 
             <TextView
-                android:id="@+id/tv_album_ar"
+                android:id="@+id/tv_album_ps"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:gravity="left|center_vertical"
                 android:minWidth="50dp"
-                android:text="@string/recent_photos"
-                android:textColor="@drawable/btn_black_textcolor_selector"
+                android:text="@string/ps_recent_photos"
+                android:textColor="@drawable/ps_selector_btn_black_textcolor"
                 android:textSize="13sp"/>
 
             <ImageView
@@ -133,23 +133,23 @@
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="-3dp"
                 android:layout_marginLeft="-3dp"
-                android:layout_toRightOf="@+id/tv_album_ar"
-                android:background="@drawable/ic_spinner_white"
+                android:layout_toRightOf="@+id/tv_album_ps"
+                android:background="@drawable/ps_spinner_white"
                 android:scaleType="centerInside"/>
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_line_ar"
+            android:id="@+id/tv_line_ps"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:layout_toLeftOf="@+id/tv_preview_ar"
+            android:layout_toLeftOf="@+id/tv_preview_ps"
             android:background="@android:color/white"/>
 
         <TextView
-            android:id="@+id/tv_preview_ar"
+            android:id="@+id/tv_preview_ps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -157,8 +157,8 @@
             android:clickable="true"
             android:enabled="false"
             android:padding="10dp"
-            android:text="@string/preview"
-            android:textColor="@drawable/btn_black_textcolor_selector"/>
+            android:text="@string/ps_preview"
+            android:textColor="@drawable/ps_selector_btn_black_textcolor"/>
     </RelativeLayout>
 
 </RelativeLayout>

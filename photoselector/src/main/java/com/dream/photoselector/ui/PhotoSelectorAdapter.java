@@ -15,7 +15,7 @@ import com.dream.photoselector.model.PhotoModel;
  */
 
 
-public class PhotoSelectorAdapter extends MBaseAdapter<PhotoModel> {
+public class PhotoSelectorAdapter extends PsBaseAdapter<PhotoModel> {
 
     private int itemWidth;
     private int horizontalNum = 3;
@@ -43,7 +43,7 @@ public class PhotoSelectorAdapter extends MBaseAdapter<PhotoModel> {
      * 设置每一个Item的宽高
      */
     public void setItemWidth(int screenWidth) {
-        int horizontalSpace = mContext.getResources().getDimensionPixelSize(R.dimen.sticky_item_horizontalSpacing);
+        int horizontalSpace = mContext.getResources().getDimensionPixelSize(R.dimen.ps_sticky_item_horizontalSpacing);
         this.itemWidth = (screenWidth - (horizontalSpace * (horizontalNum - 1))) / horizontalNum;
         this.itemLayoutParams = new LayoutParams(itemWidth, itemWidth);
     }

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/albumitem_height"
+                android:layout_height="@dimen/ps_album_item_height"
                 android:gravity="center_vertical">
 
     <RelativeLayout
-        android:id="@+id/layout_left_la"
-        android:layout_width="@dimen/albumitem_content_height"
-        android:layout_height="@dimen/albumitem_content_height"
+        android:id="@+id/layout_ps"
+        android:layout_width="@dimen/ps_album_item_content_height"
+        android:layout_height="@dimen/ps_album_item_content_height"
         android:layout_centerVertical="true">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_album_border"
+            android:background="@drawable/ps_bg_album_border"
             android:scaleType="fitCenter"/>
 
         <ImageView
-            android:id="@+id/iv_album_la"
+            android:id="@+id/iv_album_ps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="5dp"
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/layout_left_la"
+        android:layout_toRightOf="@+id/layout_ps"
         android:gravity="center_vertical"
         android:paddingLeft="5dp">
 
@@ -39,26 +39,26 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_name_la"
+                android:id="@+id/tv_name_ps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="17sp"/>
 
             <TextView
-                android:id="@+id/tv_count_la"
+                android:id="@+id/tv_count_ps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"/>
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_index_la"
-            android:layout_width="@dimen/albumitem_image_height"
-            android:layout_height="@dimen/albumitem_image_height"
+            android:id="@+id/iv_index_ps"
+            android:layout_width="@dimen/ps_album_item_image_height"
+            android:layout_height="@dimen/ps_album_item_image_height"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_choice_green"/>
+            android:src="@drawable/ps_choice_green"/>
     </RelativeLayout>
 
 </RelativeLayout>

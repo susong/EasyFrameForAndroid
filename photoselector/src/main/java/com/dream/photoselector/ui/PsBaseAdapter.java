@@ -13,12 +13,12 @@ import java.util.List;
  */
 
 
-public class MBaseAdapter<T> extends BaseAdapter {
+public class PsBaseAdapter<T> extends BaseAdapter {
 
     protected Context mContext;
     protected List<T> mList;
 
-    public MBaseAdapter(Context context, List<T> list) {
+    public PsBaseAdapter(Context context, List<T> list) {
         this.mContext = context;
         if (list == null) {
             this.mList = new ArrayList<T>();

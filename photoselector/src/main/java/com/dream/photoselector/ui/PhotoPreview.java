@@ -29,10 +29,10 @@ public class PhotoPreview extends LinearLayout implements OnClickListener {
 
 	public PhotoPreview(Context context) {
 		super(context);
-		LayoutInflater.from(context).inflate(R.layout.view_photopreview, this, true);
+		LayoutInflater.from(context).inflate(R.layout.view_photo_preview, this, true);
 
-		pbLoading = (ProgressBar) findViewById(R.id.pb_loading_vpp);
-		ivContent = (GestureImageView) findViewById(R.id.iv_content_vpp);
+		pbLoading = (ProgressBar) findViewById(R.id.pb_loading_ps);
+		ivContent = (GestureImageView) findViewById(R.id.iv_content_ps);
 		ivContent.setOnClickListener(this);
 	}
 
@@ -58,7 +58,7 @@ public class PhotoPreview extends LinearLayout implements OnClickListener {
 
 			@Override
 			public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-				ivContent.setImageDrawable(getResources().getDrawable(R.drawable.ic_picture_loadfailed));
+				ivContent.setImageDrawable(getResources().getDrawable(R.drawable.ps_picture_loadfailed));
 				pbLoading.setVisibility(View.GONE);
 			}
 		});
@@ -71,7 +71,7 @@ public class PhotoPreview extends LinearLayout implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.iv_content_vpp && l != null)
+		if (v.getId() == R.id.iv_content_ps && l != null)
 			l.onClick(ivContent);
 	};
 

@@ -25,12 +25,12 @@ public class AlbumItem extends LinearLayout {
     public AlbumItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        LayoutInflater.from(context).inflate(R.layout.layout_album, this, true);
+        LayoutInflater.from(context).inflate(R.layout.item_album, this, true);
 
-        ivAlbum = (ImageView) findViewById(R.id.iv_album_la);
-        ivIndex = (ImageView) findViewById(R.id.iv_index_la);
-        tvName = (TextView) findViewById(R.id.tv_name_la);
-        tvCount = (TextView) findViewById(R.id.tv_count_la);
+        ivAlbum = (ImageView) findViewById(R.id.iv_album_ps);
+        ivIndex = (ImageView) findViewById(R.id.iv_index_ps);
+        tvName = (TextView) findViewById(R.id.tv_name_ps);
+        tvCount = (TextView) findViewById(R.id.tv_count_ps);
     }
 
     public AlbumItem(Context context, AttributeSet attrs, int defStyle) {

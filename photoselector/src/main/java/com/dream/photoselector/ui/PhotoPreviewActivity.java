@@ -52,17 +52,17 @@ public class PhotoPreviewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
-        setContentView(R.layout.activity_photopreview);
-        mPhotoPreviewToolbar = (RelativeLayout) findViewById(R.id.photo_preview_toolbar);
-        mPhotoPreviewBottomToolbar = (RelativeLayout) findViewById(R.id.photo_preview_bottom_toolbar);
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mIbBack = (ImageButton) findViewById(R.id.ib_back);
-        mTvPercent = (TextView) findViewById(R.id.tv_percent);
-        mCbCheck = (CheckBox) findViewById(R.id.cb_check);
-        mBtnConfirm = (Button) findViewById(R.id.btn_confirm);
+        setContentView(R.layout.activity_photo_preview);
+        mPhotoPreviewToolbar = (RelativeLayout) findViewById(R.id.photo_preview_toolbar_ps);
+        mPhotoPreviewBottomToolbar = (RelativeLayout) findViewById(R.id.photo_preview_bottom_toolbar_ps);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager_ps);
+        mIbBack = (ImageButton) findViewById(R.id.ib_back_ps);
+        mTvPercent = (TextView) findViewById(R.id.tv_percent_ps);
+        mCbCheck = (CheckBox) findViewById(R.id.cb_check_ps);
+        mBtnConfirm = (Button) findViewById(R.id.btn_confirm_ps);
 
 
-        mConfirmStr = getResources().getString(R.string.sure);
+        mConfirmStr = getResources().getString(R.string.ps_confirm);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -124,7 +124,6 @@ public class PhotoPreviewActivity extends Activity {
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("PhotoPreviewActivity", mPhotoModelSelectorList.toString());
                 Intent intent = new Intent();
                 intent.putParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
                 setResult(PsConstants.PHOTO_PREVIEW_RESULT_CODE_CONFIRM, intent);
@@ -142,7 +141,7 @@ public class PhotoPreviewActivity extends Activity {
                         if (mCurrentSize + mPhotoModelSelectorList.size() < mMaxSize) {
                             mPhotoModelSelectorList.add(photoModel);
                         } else {
-                            Toast.makeText(PhotoPreviewActivity.this, String.format(getString(R.string.max_img_limit_reached), mMaxSize), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PhotoPreviewActivity.this, String.format(getString(R.string.ps_max_img_limit_reached), mMaxSize), Toast.LENGTH_SHORT).show();
                             photoModel.setChecked(false);
                             mCbCheck.setChecked(false);
                         }
@@ -210,7 +209,6 @@ public class PhotoPreviewActivity extends Activity {
 
         @Override
         public View instantiateItem(final ViewGroup container, final int position) {
-            Log.d("PhotoPreviewActivity", "instantiateItem :" + position);
             PhotoPreview photoPreview = new PhotoPreview(getApplicationContext());
             container.addView(photoPreview);
             PhotoModel photoModel = mPhotoModelList.get(position);

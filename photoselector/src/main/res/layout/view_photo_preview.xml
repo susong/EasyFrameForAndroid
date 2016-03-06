@@ -7,14 +7,14 @@
              android:background="@android:color/black">
 
     <ProgressBar
-        android:id="@+id/pb_loading_vpp"
+        android:id="@+id/pb_loading_ps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminateDrawable="@drawable/pb_default"/>
+        android:indeterminateDrawable="@drawable/ps_animated_loading"/>
 
     <com.dream.photoselector.polites.GestureImageView
-        android:id="@+id/iv_content_vpp"
+        android:id="@+id/iv_content_ps"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         gesture-image:max-scale="10.0"

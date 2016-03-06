@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.dream.photoselector.model.AlbumModel;
 
 
-public class AlbumAdapter extends MBaseAdapter<AlbumModel> {
+public class AlbumAdapter extends PsBaseAdapter<AlbumModel> {
 
     public AlbumAdapter(Context context) {
         super(context, null);

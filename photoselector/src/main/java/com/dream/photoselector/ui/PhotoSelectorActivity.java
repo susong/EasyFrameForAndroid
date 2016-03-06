@@ -83,16 +83,16 @@ public class PhotoSelectorActivity extends Activity {
     }
 
     private void initView() {
-        layoutAlbum = (RelativeLayout) findViewById(R.id.layout_album_ar);
-        tvTitle = (TextView) findViewById(R.id.tv_title);
-        gvPhotos = (GridView) findViewById(R.id.gv_photos_ar);
-        lvAlbum = (ListView) findViewById(R.id.lv_ablum_ar);
-        btnOk = (Button) findViewById(R.id.btn_right_lh);
-        tvAlbum = (TextView) findViewById(R.id.tv_album_ar);
-        tvPreview = (TextView) findViewById(R.id.tv_preview_ar);
+        layoutAlbum = (RelativeLayout) findViewById(R.id.layout_album_ps);
+        tvTitle = (TextView) findViewById(R.id.tv_title_ps);
+        gvPhotos = (GridView) findViewById(R.id.gv_photos_ps);
+        lvAlbum = (ListView) findViewById(R.id.lv_album_ps);
+        btnOk = (Button) findViewById(R.id.btn_confirm_ps);
+        tvAlbum = (TextView) findViewById(R.id.tv_album_ps);
+        tvPreview = (TextView) findViewById(R.id.tv_preview_ps);
 
-        mRecentPhotoStr = getResources().getString(R.string.recent_photos);
-        sure = getResources().getString(R.string.sure);
+        mRecentPhotoStr = getResources().getString(R.string.ps_recent_photos);
+        sure = getResources().getString(R.string.ps_confirm);
 
         int currentSize = mCurrentSize + mPhotoModelSelectorList.size();
         btnOk.setText(sure + "(" + currentSize + "/" + mMaxSize + ")");
@@ -155,7 +155,7 @@ public class PhotoSelectorActivity extends Activity {
         });
 
         // 返回
-        findViewById(R.id.ll_back).setOnClickListener(new OnClickListener() {
+        findViewById(R.id.layout_back_ps).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -204,7 +204,7 @@ public class PhotoSelectorActivity extends Activity {
 
                         if (mPhotoModelSelectorList.isEmpty()) {
                             tvPreview.setEnabled(false);
-                            tvPreview.setText(getString(R.string.preview));
+                            tvPreview.setText(getString(R.string.ps_preview));
                         }
                     }
                 },
@@ -300,7 +300,7 @@ public class PhotoSelectorActivity extends Activity {
             PhotoModel photoModel = new PhotoModel(PsCommonUtils.query(getApplicationContext(), data.getData()));
 
             if (mPhotoModelSelectorList.size() >= mMaxSize) {
-                Toast.makeText(this, String.format(getString(R.string.max_img_limit_reached), mMaxSize), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, String.format(getString(R.string.ps_max_img_limit_reached), mMaxSize), Toast.LENGTH_SHORT).show();
                 photoModel.setChecked(false);
                 mPhotoSelectorAdapter.notifyDataSetChanged();
             } else {
@@ -429,8 +429,8 @@ public class PhotoSelectorActivity extends Activity {
 
     private void initImageLoader() {
         DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_picture_loading)
-                .showImageOnFail(R.drawable.ic_picture_loadfailed)
+                .showImageOnLoading(R.drawable.ps_picture_loading)
+                .showImageOnFail(R.drawable.ps_picture_loadfailed)
                 .cacheInMemory(true).cacheOnDisk(true)
                 .resetViewBeforeLoading(true).considerExifParams(false)
                 .bitmapConfig(Bitmap.Config.RGB_565).build();
