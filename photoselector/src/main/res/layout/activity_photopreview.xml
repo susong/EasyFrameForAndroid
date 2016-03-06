@@ -1,49 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_base_app"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <RelativeLayout
         android:id="@+id/photo_preview_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_title_heigh"
+        android:layout_height="@dimen/layout_title_height"
         android:layout_alignParentTop="true"
-        android:background="@color/ps_background" >
+        android:background="@color/ps_transparent_background">
 
         <ImageButton
-            android:id="@+id/btn_back_app"
-            android:layout_width="@dimen/layout_title_content_heigh"
-            android:layout_height="@dimen/layout_title_content_heigh"
+            android:id="@+id/ib_back"
+            android:layout_width="@dimen/layout_title_content_height"
+            android:layout_height="@dimen/layout_title_content_height"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:background="@drawable/bg_back_arrow_white_selector"
+            android:contentDescription="@null"
             android:padding="20dp"
-            android:scaleType="centerInside" />
+            android:scaleType="centerInside"/>
 
         <TextView
-            android:id="@+id/tv_line_apu"
+            android:id="@+id/tv_line"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/btn_back_app"
-            android:background="@android:color/white" />
+            android:layout_toEndOf="@+id/ib_back"
+            android:layout_toRightOf="@+id/ib_back"
+            android:background="@android:color/white"/>
 
         <TextView
-            android:id="@+id/tv_percent_app"
+            android:id="@+id/tv_percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/tv_line"
+            android:layout_toRightOf="@+id/tv_line"
+            android:textColor="@android:color/white"
+            tools:text="1/10"/>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:paddingRight="10dp"
-            android:textColor="@android:color/white" />
+            android:background="@color/ps_transparent"
+            android:padding="5dp"
+            android:text="@string/sure"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/layout_title_mini_text_size"
+            tools:text="确定(1/10)"/>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/photo_preview_bottom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_title_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/ps_transparent_background">
+
+        <CheckBox
+            android:id="@+id/cb_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:button="@drawable/btn_checkbox_selector"
+            android:padding="5dp"
+            android:text="@string/ps_check"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/layout_title_mini_text_size"/>
+    </RelativeLayout>
 </RelativeLayout>

@@ -10,35 +10,35 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
-public class AnimationUtil implements AnimationListener {
+public class PsAnimationUtils implements AnimationListener {
 
 	private Animation animation;
 	private OnAnimationEndListener animationEndListener; // ������ɼ�����
 	private OnAnimationStartListener animationStartListener; // ������ʼ������
 	private OnAnimationRepeatListener animationRepeatListener; // �����ظ�ʱ�ļ�����
 
-	public AnimationUtil(Context context, int resId) {
+	public PsAnimationUtils(Context context, int resId) {
 		this.animation = AnimationUtils.loadAnimation(context, resId);
 		this.animation.setAnimationListener(this);
 	}
 
-	public AnimationUtil(float fromXDelta, float toXDelta, float fromYDelta,
-			float toYDelta) {
+	public PsAnimationUtils(float fromXDelta, float toXDelta, float fromYDelta,
+							float toYDelta) {
 		animation = new TranslateAnimation(fromXDelta, toXDelta, fromYDelta,
 				toYDelta);
 	}
 
-	public AnimationUtil setStartOffSet(long startOffset) {
+	public PsAnimationUtils setStartOffSet(long startOffset) {
 		animation.setStartOffset(startOffset);
 		return this;
 	}
 
-	public AnimationUtil setInterpolator(Interpolator i) {
+	public PsAnimationUtils setInterpolator(Interpolator i) {
 		animation.setInterpolator(i);
 		return this;
 	}
 	
-	public AnimationUtil setLinearInterpolator() {
+	public PsAnimationUtils setLinearInterpolator() {
 		animation.setInterpolator(new LinearInterpolator());
 		return this;
 	}
@@ -52,12 +52,12 @@ public class AnimationUtil implements AnimationListener {
 		((AnimationDrawable) view.getBackground()).start();
 	}
 
-	public AnimationUtil setDuration(long durationMillis) {
+	public PsAnimationUtils setDuration(long durationMillis) {
 		animation.setDuration(durationMillis);
 		return this;
 	}
 
-	public AnimationUtil setFillAfter(boolean fillAfter) {
+	public PsAnimationUtils setFillAfter(boolean fillAfter) {
 		animation.setFillAfter(fillAfter);
 		return this;
 	}
@@ -74,19 +74,19 @@ public class AnimationUtil implements AnimationListener {
 		void onAnimationRepeat(Animation animation);
 	}
 
-	public AnimationUtil setOnAnimationEndLinstener(
+	public PsAnimationUtils setOnAnimationEndLinstener(
 			OnAnimationEndListener listener) {
 		this.animationEndListener = listener;
 		return this;
 	}
 
-	public AnimationUtil setOnAnimationStartLinstener(
+	public PsAnimationUtils setOnAnimationStartLinstener(
 			OnAnimationStartListener listener) {
 		this.animationStartListener = listener;
 		return this;
 	}
 
-	public AnimationUtil setOnAnimationRepeatLinstener(
+	public PsAnimationUtils setOnAnimationRepeatLinstener(
 			OnAnimationRepeatListener listener) {
 		this.animationRepeatListener = listener;
 		return this;

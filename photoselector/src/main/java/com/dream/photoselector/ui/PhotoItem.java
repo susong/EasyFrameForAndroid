@@ -53,8 +53,8 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (!isCheckAll) {
-            if (isChecked && PhotoSelectorActivity.sIsFull) {
-                Toast.makeText(mContext, String.format(mContext.getString(R.string.max_img_limit_reached), PhotoSelectorActivity.sMaxImageSize), Toast.LENGTH_SHORT).show();
+            if (isChecked && PhotoSelectorActivity.mIsFull) {
+                Toast.makeText(mContext, String.format(mContext.getString(R.string.max_img_limit_reached), PhotoSelectorActivity.mMaxSize), Toast.LENGTH_SHORT).show();
                 cbPhoto.setChecked(false);
                 return;
             }

@@ -9,9 +9,9 @@
     <dimen name="checkbox_height">25dp</dimen>
 
     <!-- Title 相关高度 -->
-    <dimen name="layout_title_heigh">45dp</dimen>
-    <dimen name="layout_title_content_heigh">30dp</dimen>
-    <dimen name="layout_title_mini_textsize">16sp</dimen>
+    <dimen name="layout_title_height">45dp</dimen>
+    <dimen name="layout_title_content_height">30dp</dimen>
+    <dimen name="layout_title_mini_text_size">16sp</dimen>
     
     <!-- 图片选择界面Item相关 -->
     <dimen name="sticky_item_horizontalSpacing">2dp</dimen>

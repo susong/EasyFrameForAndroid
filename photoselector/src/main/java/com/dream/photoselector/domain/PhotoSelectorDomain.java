@@ -22,7 +22,10 @@ public class PhotoSelectorDomain {
         albumController = new AlbumController(context);
     }
 
-    public void getRecent(final PhotoSelectorActivity.OnLocalRecentListener listener) {
+    /**
+     * 获取最近照片列表
+     */
+    public void getCurrentPhotoList(final PhotoSelectorActivity.OnPhotoLoadListener listener) {
         final Handler handler = new Handler() {
             @SuppressWarnings("unchecked")
             @Override
@@ -33,7 +36,7 @@ public class PhotoSelectorDomain {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<PhotoModel> photos = albumController.getCurrent();
+                List<PhotoModel> photos = albumController.getCurrentPhotoList();
                 Message msg = new Message();
                 msg.obj = photos;
                 handler.sendMessage(msg);
@@ -44,7 +47,7 @@ public class PhotoSelectorDomain {
     /**
      * 获取相册列表
      */
-    public void updateAlbum(final PhotoSelectorActivity.OnLocalAlbumListener listener) {
+    public void getAlbumsList(final PhotoSelectorActivity.OnAlbumLoadListener listener) {
         final Handler handler = new Handler() {
             @SuppressWarnings("unchecked")
             @Override
@@ -55,7 +58,7 @@ public class PhotoSelectorDomain {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<AlbumModel> albums = albumController.getAlbums();
+                List<AlbumModel> albums = albumController.getAlbumsList();
                 Message msg = new Message();
                 msg.obj = albums;
                 handler.sendMessage(msg);
@@ -66,7 +69,7 @@ public class PhotoSelectorDomain {
     /**
      * 获取单个相册下的所有照片信息
      */
-    public void getAlbum(final String name, final PhotoSelectorActivity.OnLocalRecentListener listener) {
+    public void getPhotoListByAlbum(final String name, final PhotoSelectorActivity.OnPhotoLoadListener listener) {
         final Handler handler = new Handler() {
             @SuppressWarnings("unchecked")
             @Override
@@ -77,7 +80,7 @@ public class PhotoSelectorDomain {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<PhotoModel> photos = albumController.getAlbum(name);
+                List<PhotoModel> photos = albumController.getPhotoListByAlbum(name);
                 Message msg = new Message();
                 msg.obj = photos;
                 handler.sendMessage(msg);

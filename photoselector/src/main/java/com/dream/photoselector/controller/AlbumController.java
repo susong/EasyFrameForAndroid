@@ -26,11 +26,12 @@ public class AlbumController {
     /**
      * 获取最近照片列表
      */
-    public List<PhotoModel> getCurrent() {
+    public List<PhotoModel> getCurrentPhotoList() {
         Cursor cursor = resolver.query(Media.EXTERNAL_CONTENT_URI, new String[]{ImageColumns.DATA,
                 ImageColumns.DATE_ADDED, ImageColumns.SIZE}, null, null, ImageColumns.DATE_ADDED);
-        if (cursor == null || !cursor.moveToNext())
+        if (cursor == null || !cursor.moveToNext()) {
             return new ArrayList<PhotoModel>();
+        }
         List<PhotoModel> photos = new ArrayList<PhotoModel>();
         cursor.moveToLast();
         do {
@@ -46,13 +47,14 @@ public class AlbumController {
     /**
      * 获取所有相册列表
      */
-    public List<AlbumModel> getAlbums() {
+    public List<AlbumModel> getAlbumsList() {
         List<AlbumModel> albums = new ArrayList<AlbumModel>();
         Map<String, AlbumModel> map = new HashMap<String, AlbumModel>();
         Cursor cursor = resolver.query(Media.EXTERNAL_CONTENT_URI, new String[]{ImageColumns.DATA,
                 ImageColumns.BUCKET_DISPLAY_NAME, ImageColumns.SIZE}, null, null, null);
-        if (cursor == null || !cursor.moveToNext())
+        if (cursor == null || !cursor.moveToNext()) {
             return new ArrayList<AlbumModel>();
+        }
         cursor.moveToLast();
         AlbumModel current = new AlbumModel("最近照片", 0, cursor.getString(cursor.getColumnIndex(ImageColumns.DATA)), true);
         albums.add(current);
@@ -76,12 +78,13 @@ public class AlbumController {
     /**
      * 获取对应相册下的照片
      */
-    public List<PhotoModel> getAlbum(String name) {
+    public List<PhotoModel> getPhotoListByAlbum(String name) {
         Cursor cursor = resolver.query(Media.EXTERNAL_CONTENT_URI, new String[]{ImageColumns.BUCKET_DISPLAY_NAME,
                         ImageColumns.DATA, ImageColumns.DATE_ADDED, ImageColumns.SIZE}, "bucket_display_name = ?",
                 new String[]{name}, ImageColumns.DATE_ADDED);
-        if (cursor == null || !cursor.moveToNext())
+        if (cursor == null || !cursor.moveToNext()) {
             return new ArrayList<PhotoModel>();
+        }
         List<PhotoModel> photos = new ArrayList<PhotoModel>();
         cursor.moveToLast();
         do {

@@ -9,5 +9,5 @@
     <string name="back">返回</string>
     <string name="taking_pictures">拍摄照片</string>
     <string name="max_img_limit_reached">你最多只能选择%d张照片</string>
-
+    <string name="ps_check">选择</string>
 </resources>

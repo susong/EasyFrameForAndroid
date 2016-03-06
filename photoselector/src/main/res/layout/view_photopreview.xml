@@ -4,7 +4,7 @@
              xmlns:gesture-image="http://schemas.polites.com/android"
              android:layout_width="fill_parent"
              android:layout_height="fill_parent"
-             android:background="@android:color/white">
+             android:background="@android:color/black">
 
     <ProgressBar
         android:id="@+id/pb_loading_vpp"

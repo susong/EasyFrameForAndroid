@@ -1,72 +1,75 @@
 package com.dream.photoselector.model;
 
+/**
+ * 相册
+ */
 public class AlbumModel {
 
-	private String name;
+    private String name;
 
-	private int count;
+    private int count;
 
-	private String recent;
+    private String recent;
 
-	private boolean isCheck;
+    private boolean isCheck;
 
-	public AlbumModel() {
-		super();
-	}
-	
-	public AlbumModel(String name) {
-		this.name = name;
-	}
+    public AlbumModel() {
+        super();
+    }
 
-	public AlbumModel(String name, int count, String recent) {
-		super();
-		this.name = name;
-		this.count = count;
-		this.recent = recent;
-	}
-	
-	public AlbumModel(String name, int count, String recent, boolean isCheck) {
-		super();
-		this.name = name;
-		this.count = count;
-		this.recent = recent;
-		this.isCheck = isCheck;
-	}
+    public AlbumModel(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public AlbumModel(String name, int count, String recent) {
+        super();
+        this.name = name;
+        this.count = count;
+        this.recent = recent;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public AlbumModel(String name, int count, String recent, boolean isCheck) {
+        super();
+        this.name = name;
+        this.count = count;
+        this.recent = recent;
+        this.isCheck = isCheck;
+    }
 
-	public int getCount() {
-		return count;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setCount(int count) {
-		this.count = count;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getRecent() {
-		return recent;
-	}
+    public int getCount() {
+        return count;
+    }
 
-	public void setRecent(String recent) {
-		this.recent = recent;
-	}
+    public void setCount(int count) {
+        this.count = count;
+    }
 
-	public boolean isCheck() {
-		return isCheck;
-	}
+    public String getRecent() {
+        return recent;
+    }
 
-	public void setCheck(boolean isCheck) {
-		this.isCheck = isCheck;
-	}
+    public void setRecent(String recent) {
+        this.recent = recent;
+    }
 
-	public void increaseCount() {
-		count++;
-	}
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean isCheck) {
+        this.isCheck = isCheck;
+    }
+
+    public void increaseCount() {
+        count++;
+    }
 
 }

@@ -104,7 +104,7 @@ public class PhotoSelectorSampleActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (resultCode != RESULT_OK)
             return;
         if (requestCode == REQUEST_CODE_GET_IMAGE_BY_CAMERA) {
@@ -120,7 +120,7 @@ public class PhotoSelectorSampleActivity extends AppCompatActivity {
         } else if (requestCode == REQUEST_CODE_GET_IMAGE_BY_ALBUM) {
             // 图片库
             @SuppressWarnings("unchecked")
-            List<PhotoModel> models = (List<PhotoModel>) data.getExtras().getSerializable("photos");
+            List<PhotoModel> models = intent.getParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_LIST);
             List<String> images = new ArrayList<String>();
             for (PhotoModel photo : models) {
                 images.add(photo.getOriginalPath());

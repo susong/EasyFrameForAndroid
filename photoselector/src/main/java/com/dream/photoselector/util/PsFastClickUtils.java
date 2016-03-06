@@ -6,7 +6,7 @@ package com.dream.photoselector.util;
  * Date:        15/10/2 下午9:57
  * Description: EasyFrame
  */
-public class FastClickUtils {
+public class PsFastClickUtils {
 
     private static long lastClickTime;
 

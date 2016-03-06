@@ -9,58 +9,58 @@ import android.widget.AbsListView.LayoutParams;
 import com.dream.photoselector.R;
 import com.dream.photoselector.model.PhotoModel;
 
-import java.util.ArrayList;
-
 
 /**
- * 
  * @author Aizaz AZ
- *
  */
 
 
 public class PhotoSelectorAdapter extends MBaseAdapter<PhotoModel> {
 
-	private int itemWidth;
-	private int horizentalNum = 3;
-	private PhotoItem.onPhotoItemCheckedListener listener;
-	private LayoutParams itemLayoutParams;
-	private PhotoItem.onItemClickListener mCallback;
-	private OnClickListener cameraListener;
+    private int itemWidth;
+    private int horizontalNum = 3;
+    private PhotoItem.onPhotoItemCheckedListener mOnPhotoItemCheckedListener;
+    private LayoutParams itemLayoutParams;
+    private PhotoItem.onItemClickListener mOnItemClickListener;
+    private OnClickListener mCameraOnClickListener;
 
-	private PhotoSelectorAdapter(Context context, ArrayList<PhotoModel> models) {
-		super(context, models);
-	}
+    private PhotoSelectorAdapter(Context context) {
+        super(context, null);
+    }
 
-	public PhotoSelectorAdapter(Context context, ArrayList<PhotoModel> models, int screenWidth, PhotoItem.onPhotoItemCheckedListener listener, PhotoItem.onItemClickListener mCallback,
-								OnClickListener cameraListener) {
-		this(context, models);
-		setItemWidth(screenWidth);
-		this.listener = listener;
-		this.mCallback = mCallback;
-		this.cameraListener = cameraListener;
-	}
+    public PhotoSelectorAdapter(Context context, int screenWidth,
+                                PhotoItem.onPhotoItemCheckedListener onPhotoItemCheckedListener,
+                                PhotoItem.onItemClickListener onItemClickListener,
+                                OnClickListener cameraOnClickListener) {
+        this(context);
+        setItemWidth(screenWidth);
+        this.mOnPhotoItemCheckedListener = onPhotoItemCheckedListener;
+        this.mOnItemClickListener = onItemClickListener;
+        this.mCameraOnClickListener = cameraOnClickListener;
+    }
 
-	/** 设置每一个Item的宽高 */
-	public void setItemWidth(int screenWidth) {
-		int horizentalSpace = context.getResources().getDimensionPixelSize(R.dimen.sticky_item_horizontalSpacing);
-		this.itemWidth = (screenWidth - (horizentalSpace * (horizentalNum - 1))) / horizentalNum;
-		this.itemLayoutParams = new LayoutParams(itemWidth, itemWidth);
-	}
+    /**
+     * 设置每一个Item的宽高
+     */
+    public void setItemWidth(int screenWidth) {
+        int horizontalSpace = mContext.getResources().getDimensionPixelSize(R.dimen.sticky_item_horizontalSpacing);
+        this.itemWidth = (screenWidth - (horizontalSpace * (horizontalNum - 1))) / horizontalNum;
+        this.itemLayoutParams = new LayoutParams(itemWidth, itemWidth);
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		PhotoItem item = null;
-		if (convertView == null || !(convertView instanceof PhotoItem)) {
-			item = new PhotoItem(context, listener);
-			item.setLayoutParams(itemLayoutParams);
-			convertView = item;
-		} else {
-			item = (PhotoItem) convertView;
-		}
-		item.setImageDrawable(models.get(position));
-		item.setSelected(models.get(position).isChecked());
-		item.setOnClickListener(mCallback, position);
-		return convertView;
-	}
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        PhotoItem item = null;
+        if (convertView == null || !(convertView instanceof PhotoItem)) {
+            item = new PhotoItem(mContext, mOnPhotoItemCheckedListener);
+            item.setLayoutParams(itemLayoutParams);
+            convertView = item;
+        } else {
+            item = (PhotoItem) convertView;
+        }
+        item.setImageDrawable(mList.get(position));
+        item.setSelected(mList.get(position).isChecked());
+        item.setOnClickListener(mOnItemClickListener, position);
+        return convertView;
+    }
 }
