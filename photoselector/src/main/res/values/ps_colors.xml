@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="ps_base_background">#EFEFF4</color>
     <color name="ps_background">#1C1F23</color>
     <color name="ps_transparent_background">#E61C1F23</color>
     <color name="ps_transparent">#00000000</color>
     <color name="ps_gray">#808080</color>
+    <color name="ps_transparent_gray">#33808080</color>
+    <color name="ps_white">#FFFFFF</color>
+    <color name="ps_red">#C61D00</color>
+    <color name="ps_blue">#0074DA</color>
+    <color name="ps_white_smoke">#F5F5F5</color>
+    <color name="ps_pop_background">#45000000</color>
 </resources>

@@ -25,6 +25,7 @@ import com.dream.photoselector.R;
 import com.dream.photoselector.model.PhotoModel;
 import com.dream.photoselector.util.PsAnimationUtils;
 import com.dream.photoselector.util.PsConstants;
+import com.dream.photoselector.util.PsLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,6 +156,7 @@ public class PhotoPreviewActivity extends Activity {
                     int size = mCurrentSize + mPhotoModelSelectorList.size();
                     mBtnConfirm.setText(mConfirmStr + "(" + size + "/" + mMaxSize + ")");
                 }
+                PsLog.d(photoModel.toString());
             }
         });
 

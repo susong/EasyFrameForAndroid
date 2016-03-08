@@ -11,4 +11,7 @@
     <string name="ps_max_img_limit_reached">You can only choose %d photos at most</string>
     <string name="ps_check">check</string>
     <string name="ps_size">Size</string>
+    <string name="ps_take_pic">Taking Pictures</string>
+    <string name="ps_select_pic_from_album">Select photos from album</string>
+    <string name="ps_cancel">cancel</string>
 </resources>

@@ -22,10 +22,10 @@ import java.io.File;
  * Date:        15/10/15 上午12:37
  * Description: ImageLoaderHelper
  * https://github.com/nostra13/Android-Universal-Image-Loader
- * <p/>
+ * <p>
  * <uses-permission android:name="android.permission.INTERNET" />
  * <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
- * <p/>
+ * <p>
  * Acceptable URIs examples
  * "http://site.com/image.png" // from Web
  * "file:///mnt/sdcard/image.png" // from SD card
@@ -35,7 +35,7 @@ import java.io.File;
  * "assets://image.png" // from assets
  * "drawable://" + R.drawable.img // from drawables (non-9patch images)
  * NOTE: Use drawable:// only if you really need it! Always consider the native way to load drawables - ImageView.setImageResource(...) instead of using of ImageLoader.
- * <p/>
+ * <p>
  * 注意事项
  * 1.上述提到的2个权限必须加入，否则会出错
  * 2.ImageLoaderConfiguration必须配置并且全局化的初始化这个配置ImageLoader.getInstance().init(config);  否则也会出现错误提示
@@ -63,7 +63,10 @@ public class ImageLoaderHelper {
     }
 
     public static void init(Context context) {
-        ImageLoader.getInstance().init(getInstance(context).getImageLoaderConfiguration());
+        if (ImageLoader.getInstance().isInited()) {
+            return;
+        }
+        ImageLoader.getInstance().init(getInstance(context).getImageLoaderConfiguration(getInstance(context).getDisplayOptionsPic()));
     }
 
     public static ImageLoaderHelper getInstance(Context context) {
@@ -204,7 +207,6 @@ public class ImageLoaderHelper {
     }
 
     public ImageLoaderConfiguration getImageLoaderConfiguration(String filePath, DisplayImageOptions displayImageOptions) {
-
         ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(mContext);
 
         // Disk
@@ -240,7 +242,6 @@ public class ImageLoaderHelper {
 
         return builder.build();
     }
-
 
     public static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;

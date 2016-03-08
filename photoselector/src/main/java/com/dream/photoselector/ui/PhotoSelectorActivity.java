@@ -26,7 +26,6 @@ import com.dream.photoselector.util.PsAnimationUtils;
 import com.dream.photoselector.util.PsCommonUtils;
 import com.dream.photoselector.util.PsConstants;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -417,12 +416,18 @@ public class PhotoSelectorActivity extends Activity {
     }
 
     private void initImageLoader() {
+        if (ImageLoader.getInstance().isInited()) {
+            return;
+        }
         DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ps_picture_loading)
                 .showImageOnFail(R.drawable.ps_picture_loadfailed)
-                .cacheInMemory(true).cacheOnDisk(true)
-                .resetViewBeforeLoading(true).considerExifParams(false)
-                .bitmapConfig(Bitmap.Config.RGB_565).build();
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .resetViewBeforeLoading(true)
+                .considerExifParams(false)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .memoryCacheExtraOptions(400, 400)
                 .diskCacheExtraOptions(400, 400, null)
@@ -431,11 +436,12 @@ public class PhotoSelectorActivity extends Activity {
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .denyCacheImageMultipleSizesInMemory()
                 .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-                .memoryCacheSize(2 * 1024 * 1024)
+//                .memoryCacheSize(2 * 1024 * 1024)
                 .memoryCacheSizePercentage(13)
                 .diskCache(new UnlimitedDiskCache(StorageUtils.getCacheDirectory(this, true)))
-                .diskCacheSize(50 * 1024 * 1024).diskCacheFileCount(100)
-                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
+//                .diskCacheSize(50 * 1024 * 1024)
+//                .diskCacheFileCount(100)
+//                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
                 .imageDownloader(new BaseImageDownloader(this))
                 .imageDecoder(new BaseImageDecoder(false))
                 .defaultDisplayImageOptions(DisplayImageOptions.createSimple())

@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#45000000"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/ps_pop_background"
+              android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        android:orientation="vertical" >
+        android:background="@color/ps_transparent"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_camrea"
+            android:id="@+id/tv_camera"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/pop_camrea_album_selector_top"
+            android:background="@drawable/ps_selector_pop_camera_album_top"
             android:gravity="center"
-            android:text="拍照"
-            android:textColor="#C61D00"
-            android:textSize="18sp" />
+            android:text="@string/ps_take_pic"
+            android:textColor="@color/ps_red"
+            android:textSize="18sp"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2px" />
+            android:layout_height="1dp"/>
 
         <TextView
-            android:id="@+id/tv_alubm"
+            android:id="@+id/tv_album"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/pop_camrea_album_selector_bottom"
+            android:background="@drawable/ps_selector_pop_camera_album_bottom"
             android:gravity="center"
-            android:text="从手机相册选择"
-            android:textColor="#0074DA"
-            android:textSize="18sp" />
+            android:text="@string/ps_select_pic_from_album"
+            android:textColor="@color/ps_blue"
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/tv_cancel"
@@ -53,11 +53,11 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/pop_camrea_album_selector"
+            android:background="@drawable/ps_selector_pop_camera_album"
             android:gravity="center"
-            android:text="取消"
-            android:textColor="#0074DA"
-            android:textSize="18sp" />
+            android:text="@string/ps_cancel"
+            android:textColor="@color/ps_blue"
+            android:textSize="18sp"/>
     </LinearLayout>
 
 </LinearLayout>

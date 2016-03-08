@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dream.library.R;
+import com.dream.photoselector.ui.ViewPhotoSelector;
+
+import java.util.List;
 
 /**
  * Author:      SuSong
@@ -17,18 +20,21 @@ import com.dream.library.R;
 public class PhotoSelectorSampleActivity extends AppCompatActivity {
 
     private ViewPhotoSelector mViewPhotoSelector;
+    private static final int MAX_PIC_NUMBER = 9;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_selector_sample);
-        mViewPhotoSelector = new ViewPhotoSelector(this);
+        mViewPhotoSelector = new ViewPhotoSelector(this, MAX_PIC_NUMBER, true);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        mViewPhotoSelector.onActivityResult(requestCode, resultCode, intent);
+        if (mViewPhotoSelector.onActivityResult(requestCode, resultCode, intent)) {
+            List<String> data = mViewPhotoSelector.getData();
+        }
     }
 }

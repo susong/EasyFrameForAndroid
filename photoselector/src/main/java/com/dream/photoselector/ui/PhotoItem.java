@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.dream.photoselector.R;
 import com.dream.photoselector.model.PhotoModel;
+import com.dream.photoselector.util.PsLog;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -38,7 +39,7 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
 
     public PhotoItem(Context context, onPhotoItemCheckedListener onPhotoItemCheckedListener) {
         this(context);
-        LayoutInflater.from(context).inflate(R.layout.ps_item_photo, this, true);
+        LayoutInflater.from(context).inflate(R.layout.ps_item_photo_selector, this, true);
 
         mIvPhoto = (ImageView) findViewById(R.id.iv_photo_ps);
         mCbPhoto = (CheckBox) findViewById(R.id.cb_photo_ps);
@@ -56,6 +57,7 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
             if (isChecked && PhotoSelectorActivity.mIsFull) {
                 Toast.makeText(mContext, String.format(mContext.getString(R.string.ps_max_img_limit_reached), PhotoSelectorActivity.mMaxSize), Toast.LENGTH_SHORT).show();
                 mCbPhoto.setChecked(false);
+                PsLog.d(mPhotoModel.toString());
                 return;
             }
             mOnPhotoItemCheckedListener.onCheckedChanged(mPhotoModel, buttonView, isChecked); // 调用主界面回调函数
@@ -69,6 +71,7 @@ public class PhotoItem extends LinearLayout implements OnCheckedChangeListener, 
             mIvPhoto.clearColorFilter();
         }
         mPhotoModel.setChecked(isChecked);
+        PsLog.d(mPhotoModel.toString());
     }
 
     /**

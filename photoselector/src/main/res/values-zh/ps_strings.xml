@@ -11,4 +11,7 @@
     <string name="ps_max_img_limit_reached">你最多只能选择%d张照片</string>
     <string name="ps_check">选择</string>
     <string name="ps_size">张</string>
+    <string name="ps_take_pic">拍照</string>
+    <string name="ps_select_pic_from_album">从手机相册选择</string>
+    <string name="ps_cancel">取消</string>
 </resources>
