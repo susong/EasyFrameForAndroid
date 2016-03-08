@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dream.library.view.PsGridView
+    android:id="@+id/gridView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:horizontalSpacing="2dp"
+    android:numColumns="3"
+    android:padding="0dp"
+    android:scrollbars="none"
+    android:verticalSpacing="2dp">
+</com.dream.library.view.PsGridView>
