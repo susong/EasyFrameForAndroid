@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/EasyFrameForAndroid.iml" filepath="$PROJECT_DIR$/EasyFrameForAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-universal-image-loader/android-universal-image-loader.iml" filepath="$PROJECT_DIR$/android-universal-image-loader/android-universal-image-loader.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/headimageselector/headimageselector.iml" filepath="$PROJECT_DIR$/headimageselector/headimageselector.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/photoselector/photoselector.iml" filepath="$PROJECT_DIR$/photoselector/photoselector.iml" />
     </modules>

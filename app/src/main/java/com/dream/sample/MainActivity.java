@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.dream.library.view.PhotoSelectorSampleActivity;
+import com.dream.photoselector.ui.PhotoSelectorSampleActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

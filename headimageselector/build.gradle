@@ -22,13 +22,4 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.0'
-    // https://github.com/google/gson
-    compile 'com.google.code.gson:gson:2.6.2'
-    // https://github.com/JakeWharton/butterknife
-    compile 'com.jakewharton:butterknife:7.0.1'
-    // https://github.com/greenrobot/EventBus
-    compile 'org.greenrobot:eventbus:3.0.0'
-    // https://github.com/loopj/android-async-http
-    compile project(':android-universal-image-loader')
-    compile project(':photoselector')
 }

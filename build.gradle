@@ -31,27 +31,27 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 //其含义是除了app模块，其他子模块一律为依赖模块，且定义了一些参数和内部库，当我们的子模块有自己特殊的库，你需要复写dependencies就可以了。
-subprojects {
-    configure(allprojects - project(':app')) {
-        apply plugin: 'com.android.library'
-        android {
-            compileSdkVersion 23
-            buildToolsVersion '23.0.2'
-
-            defaultConfig {
-                minSdkVersion 15
-                targetSdkVersion 23
-                versionCode 1
-                versionName "1.0"
-            }
-            lintOptions {
-                abortOnError false
-            }
-        }
-        dependencies {
-            testCompile 'junit:junit:4.12'
-            compile 'com.android.support:appcompat-v7:23.2.0'
-        }
-//        apply from: '../gradle/maven_push.gradle'
-    }
-}
+//subprojects {
+//    configure(allprojects - project(':app')) {
+//        apply plugin: 'com.android.library'
+//        android {
+//            compileSdkVersion 23
+//            buildToolsVersion '23.0.2'
+//
+//            defaultConfig {
+//                minSdkVersion 15
+//                targetSdkVersion 23
+//                versionCode 1
+//                versionName "1.0"
+//            }
+//            lintOptions {
+//                abortOnError false
+//            }
+//        }
+//        dependencies {
+//            testCompile 'junit:junit:4.12'
+//            compile 'com.android.support:appcompat-v7:23.2.0'
+//        }
+////        apply from: '../gradle/maven_push.gradle'
+//    }
+//}

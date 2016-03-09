@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/base_bg"
+              android:background="@color/ps_base_background"
               android:orientation="vertical">
 
     <ScrollView
@@ -16,24 +16,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="200dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="可添加图片(最多可上传9张,点击图片可直接编辑美图,添加标签)"
-                android:textColor="#777777"
-                android:textSize="12sp">
-            </TextView>
-
             <include layout="@layout/ps_view_photo_grid_view"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="200dp"/>
         </LinearLayout>
     </ScrollView>
 

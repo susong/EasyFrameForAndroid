@@ -1,12 +1,11 @@
-package com.dream.library.view;
+package com.dream.photoselector.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.dream.library.R;
-import com.dream.photoselector.ui.ViewPhotoSelector;
+import com.dream.photoselector.R;
 
 import java.util.List;
 
@@ -26,8 +25,8 @@ public class PhotoSelectorSampleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo_selector_sample);
-        mViewPhotoSelector = new ViewPhotoSelector(this, MAX_PIC_NUMBER, true);
+        setContentView(R.layout.ps_activity_photo_selector_sample);
+        mViewPhotoSelector = new ViewPhotoSelector(this, MAX_PIC_NUMBER);
     }
 
 
