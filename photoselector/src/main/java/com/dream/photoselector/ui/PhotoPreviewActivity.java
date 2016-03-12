@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -180,6 +181,7 @@ public class PhotoPreviewActivity extends Activity {
         @Override
         public void onClick(View v) {
             if (mIsToolbarShow) {
+                full(true);
                 new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_preview_toolbar_translate_hidde)
                         .setInterpolator(new LinearInterpolator()).setFillAfter(true).startAnimation(mPhotoPreviewToolbar);
 
@@ -193,9 +195,28 @@ public class PhotoPreviewActivity extends Activity {
                 new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_preview_bottom_toolbar_translate_show)
                         .setInterpolator(new LinearInterpolator()).setFillAfter(true).startAnimation(mPhotoPreviewBottomToolbar);
                 mIsToolbarShow = true;
+                full(false);
             }
         }
     };
+
+    /**
+     * android 动态控制状态栏显示和隐藏的方法实例
+     * @param enable 是否全屏
+     */
+    private void full(boolean enable) {
+        if (enable) {
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            getWindow().setAttributes(lp);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        } else {
+            WindowManager.LayoutParams attr = getWindow().getAttributes();
+            attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().setAttributes(attr);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+    }
 
 
     private PagerAdapter mPagerAdapter = new PagerAdapter() {
