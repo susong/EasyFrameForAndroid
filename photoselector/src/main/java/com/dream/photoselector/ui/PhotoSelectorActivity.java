@@ -40,12 +40,6 @@ import java.util.List;
 
 public class PhotoSelectorActivity extends Activity {
 
-    public static final String KEY_MAX_SIZE = "key_max_size";
-    public static final String KEY_CURRENT_SIZE = "key_current_size";
-    public static final String KEY_PHOTO_LIST = "key_photo_list";
-    public static final String KEY_PHOTO_SELECTOR_LIST = "key_photo_selector_list";
-    public static final String KEY_IS_SELECTED_PREVIEW = "key_is_selector_preview";
-
     private GridView mGvPhotos;
     private ListView mLvAlbum;
     private Button mBtnConfirm;
@@ -113,12 +107,10 @@ public class PhotoSelectorActivity extends Activity {
                  * 预览照片
                  */
                 Bundle bundle = new Bundle();
-                bundle.putInt(KEY_MAX_SIZE, mMaxSize);
-                bundle.putInt(KEY_CURRENT_SIZE, mCurrentSize);
-                bundle.putBoolean(KEY_IS_SELECTED_PREVIEW, true);
-//                bundle.putParcelableArrayList(KEY_PHOTO_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
-//                bundle.putParcelableArrayList(KEY_PHOTO_SELECTOR_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
-                PsCommonUtils.launchActivityForResult(PhotoSelectorActivity.this, PhotoPreviewActivity.class, PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_PREVIEW, bundle);
+                bundle.putInt(PsConstants.KEY_MAX_SIZE_PS, mMaxSize);
+                bundle.putInt(PsConstants.KEY_CURRENT_SIZE_PS, mCurrentSize);
+                bundle.putBoolean(PsConstants.KEY_IS_SELECTED_PREVIEW, true);
+                PsCommonUtils.launchActivityForResult(PhotoSelectorActivity.this, PhotoPreviewActivity.class, PsConstants.REQUEST_CODE_PHOTO_PREVIEW_ACTIVITY, bundle);
             }
         });
         /**
@@ -161,8 +153,8 @@ public class PhotoSelectorActivity extends Activity {
 
     private void initIntent() {
         if (getIntent().getExtras() != null) {
-            mMaxSize = getIntent().getIntExtra(KEY_MAX_SIZE, 0);
-            mCurrentSize = getIntent().getIntExtra(KEY_CURRENT_SIZE, 0);
+            mMaxSize = getIntent().getIntExtra(PsConstants.KEY_MAX_SIZE_PS, 0);
+            mCurrentSize = getIntent().getIntExtra(PsConstants.KEY_CURRENT_SIZE_PS, 0);
         }
         if (mMaxSize == 0) {
             mIsFull = true;
@@ -215,12 +207,10 @@ public class PhotoSelectorActivity extends Activity {
                         } else {
                             bundle.putInt(PsConstants.KEY_POSITION, position);
                         }
-                        bundle.putInt(KEY_MAX_SIZE, mMaxSize);
-                        bundle.putInt(KEY_CURRENT_SIZE, mCurrentSize);
-                        bundle.putBoolean(KEY_IS_SELECTED_PREVIEW, false);
-//                        bundle.putParcelableArrayList(KEY_PHOTO_LIST, (ArrayList<PhotoModel>) mPhotoModelList);
-//                        bundle.putParcelableArrayList(KEY_PHOTO_SELECTOR_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
-                        PsCommonUtils.launchActivityForResult(PhotoSelectorActivity.this, PhotoPreviewActivity.class, PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_PREVIEW, bundle);
+                        bundle.putInt(PsConstants.KEY_MAX_SIZE_PS, mMaxSize);
+                        bundle.putInt(PsConstants.KEY_CURRENT_SIZE_PS, mCurrentSize);
+                        bundle.putBoolean(PsConstants.KEY_IS_SELECTED_PREVIEW, false);
+                        PsCommonUtils.launchActivityForResult(PhotoSelectorActivity.this, PhotoPreviewActivity.class, PsConstants.REQUEST_CODE_PHOTO_PREVIEW_ACTIVITY, bundle);
                     }
                 },
                 new OnClickListener() {
@@ -281,19 +271,19 @@ public class PhotoSelectorActivity extends Activity {
         }
         mPhotoSelectorAdapter.updateAdapter(photoModelList);
         mGvPhotos.smoothScrollToPosition(0); // 滚动到顶端
-        // reset(); //--keep mPhotoModelSelectorList mPhotoModelSelectorList
+        // reset();
     }
 
     /**
      * 拍照
      */
     private void catchPicture() {
-        PsCommonUtils.launchActivityForResult(this, new Intent(MediaStore.ACTION_IMAGE_CAPTURE), PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_CAMERA);
+        PsCommonUtils.launchActivityForResult(this, new Intent(MediaStore.ACTION_IMAGE_CAPTURE), PsConstants.REQUEST_CODE_GET_PHOTO_BY_CAMERA);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (resultCode == RESULT_OK && requestCode == PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_CAMERA) {
+        if (resultCode == RESULT_OK && requestCode == PsConstants.REQUEST_CODE_GET_PHOTO_BY_CAMERA) {
             PhotoModel photoModel = new PhotoModel(PsCommonUtils.query(getApplicationContext(), intent.getData()));
 
             if (mPhotoModelSelectorList.size() >= mMaxSize) {
@@ -306,16 +296,16 @@ public class PhotoSelectorActivity extends Activity {
                 }
             }
             ok();
-        } else if (resultCode == PsConstants.PHOTO_PREVIEW_RESULT_CODE_CONFIRM && requestCode == PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_PREVIEW) {
+        } else if (resultCode == PsConstants.RESULT_CODE_PHOTO_PREVIEW_ACTIVITY_CONFIRM && requestCode == PsConstants.REQUEST_CODE_PHOTO_PREVIEW_ACTIVITY) {
             dealPhotoModelSelectorList(intent);
             ok();
-        } else if (resultCode == PsConstants.PHOTO_PREVIEW_RESULT_CODE_BACK && requestCode == PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_PREVIEW) {
+        } else if (resultCode == PsConstants.RESULT_CODE_PHOTO_PREVIEW_ACTIVITY_BACK && requestCode == PsConstants.REQUEST_CODE_PHOTO_PREVIEW_ACTIVITY) {
             dealPhotoModelSelectorList(intent);
         }
     }
 
     private void dealPhotoModelSelectorList(Intent intent) {
-        mPhotoModelSelectorList = intent.getParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST);
+        mPhotoModelSelectorList = intent.getParcelableArrayListExtra(PsConstants.KEY_PHOTO_MODEL_LIST);
         for (PhotoModel photoModel : mPhotoModelList) {
             if (mPhotoModelSelectorList.contains(photoModel)) {
                 photoModel.setChecked(true);
@@ -342,7 +332,7 @@ public class PhotoSelectorActivity extends Activity {
             setResult(RESULT_CANCELED);
         } else {
             Intent intent = new Intent();
-            intent.putExtra(KEY_PHOTO_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
+            intent.putExtra(PsConstants.KEY_PHOTO_MODEL_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
             setResult(RESULT_OK, intent);
         }
         finish();

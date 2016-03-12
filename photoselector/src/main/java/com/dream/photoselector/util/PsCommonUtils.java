@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.util.DisplayMetrics;
 
-import com.dream.photoselector.ui.PhotoSelectorActivity;
-
 public class PsCommonUtils {
 
     public static void launchActivity(Context context, Class<?> activity) {
@@ -54,7 +52,7 @@ public class PsCommonUtils {
 
     public static void launchActivityForResult(Activity context, Class<?> activity, int requestCode, int maxImage) {
         Intent intent = new Intent(context, activity);
-        intent.putExtra(PhotoSelectorActivity.KEY_MAX_SIZE, maxImage);
+        intent.putExtra(PsConstants.KEY_MAX_SIZE_PS, maxImage);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         context.startActivityForResult(intent, requestCode);
     }

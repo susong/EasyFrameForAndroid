@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.dream.photoselector.R;
-import com.dream.photoselector.model.PhotoModel;
 import com.dream.photoselector.polites.GestureImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -40,10 +39,6 @@ public class PhotoPreview extends LinearLayout implements OnClickListener {
 
     public PhotoPreview(Context context, AttributeSet attrs) {
         this(context);
-    }
-
-    public void loadImage(PhotoModel photoModel) {
-        loadImage("file://" + photoModel.getOriginalPath());
     }
 
     public void loadImage(String path) {

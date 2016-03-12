@@ -41,7 +41,7 @@ public class PhotoPreviewActivity extends Activity {
     private CheckBox mCbCheck;
     private Button mBtnConfirm;
     private int mCurrentPosition = 0;
-    private boolean mIsToolbarShow = true;
+    private boolean mToolbarIsShowing = true;
     private String mConfirmStr;
 
     private int mMaxSize = 0;
@@ -67,12 +67,10 @@ public class PhotoPreviewActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            mMaxSize = getIntent().getIntExtra(PhotoSelectorActivity.KEY_MAX_SIZE, 0);
-            mCurrentSize = getIntent().getIntExtra(PhotoSelectorActivity.KEY_CURRENT_SIZE, 0);
+            mMaxSize = getIntent().getIntExtra(PsConstants.KEY_MAX_SIZE_PS, 0);
+            mCurrentSize = getIntent().getIntExtra(PsConstants.KEY_CURRENT_SIZE_PS, 0);
             mCurrentPosition = extras.getInt(PsConstants.KEY_POSITION, 0);
-//            mPhotoModelList = extras.getParcelableArrayList(PhotoSelectorActivity.KEY_PHOTO_LIST);
-//            mPhotoModelSelectorList = extras.getParcelableArrayList(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST);
-            boolean is_selected_preview = extras.getBoolean(PhotoSelectorActivity.KEY_IS_SELECTED_PREVIEW, false);
+            boolean is_selected_preview = extras.getBoolean(PsConstants.KEY_IS_SELECTED_PREVIEW, false);
             if (is_selected_preview) {
                 mPhotoModelList.addAll(PhotoSelectorActivity.mPhotoModelSelectorList);
             } else {
@@ -116,8 +114,8 @@ public class PhotoPreviewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
-                setResult(PsConstants.PHOTO_PREVIEW_RESULT_CODE_BACK, intent);
+                intent.putParcelableArrayListExtra(PsConstants.KEY_PHOTO_MODEL_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
+                setResult(PsConstants.RESULT_CODE_PHOTO_PREVIEW_ACTIVITY_BACK, intent);
                 finish();
             }
         });
@@ -126,8 +124,8 @@ public class PhotoPreviewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
-                setResult(PsConstants.PHOTO_PREVIEW_RESULT_CODE_CONFIRM, intent);
+                intent.putParcelableArrayListExtra(PsConstants.KEY_PHOTO_MODEL_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
+                setResult(PsConstants.RESULT_CODE_PHOTO_PREVIEW_ACTIVITY_CONFIRM, intent);
                 finish();
             }
         });
@@ -168,8 +166,8 @@ public class PhotoPreviewActivity extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent();
-        intent.putParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
-        setResult(PsConstants.PHOTO_PREVIEW_RESULT_CODE_BACK, intent);
+        intent.putParcelableArrayListExtra(PsConstants.KEY_PHOTO_MODEL_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
+        setResult(PsConstants.RESULT_CODE_PHOTO_PREVIEW_ACTIVITY_BACK, intent);
         finish();
     }
 
@@ -179,21 +177,21 @@ public class PhotoPreviewActivity extends Activity {
     private View.OnClickListener photoItemClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mIsToolbarShow) {
+            if (mToolbarIsShowing) {
                 full(true);
                 new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_preview_toolbar_translate_hidde)
                         .setInterpolator(new LinearInterpolator()).setFillAfter(true).startAnimation(mPhotoPreviewToolbar);
 
                 new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_preview_bottom_toolbar_translate_hidde)
                         .setInterpolator(new LinearInterpolator()).setFillAfter(true).startAnimation(mPhotoPreviewBottomToolbar);
-                mIsToolbarShow = false;
+                mToolbarIsShowing = false;
             } else {
                 new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_preview_toolbar_translate_show)
                         .setInterpolator(new LinearInterpolator()).setFillAfter(true).startAnimation(mPhotoPreviewToolbar);
 
                 new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_preview_bottom_toolbar_translate_show)
                         .setInterpolator(new LinearInterpolator()).setFillAfter(true).startAnimation(mPhotoPreviewBottomToolbar);
-                mIsToolbarShow = true;
+                mToolbarIsShowing = true;
                 full(false);
             }
         }
@@ -235,7 +233,7 @@ public class PhotoPreviewActivity extends Activity {
             PhotoPreview photoPreview = new PhotoPreview(getApplicationContext());
             container.addView(photoPreview);
             PhotoModel photoModel = mPhotoModelList.get(position);
-            photoPreview.loadImage(photoModel);
+            photoPreview.loadImage("file://" + photoModel.getOriginalPath());
             photoPreview.setOnClickListener(photoItemClickListener);
             return photoPreview;
         }

@@ -36,7 +36,7 @@ public class PhotoSelectedPreviewActivity extends Activity {
     private TextView mTvPercent;
     private ImageButton mIbDelete;
     private RelativeLayout mPhotoPreviewToolbar;
-    private boolean mIsToolbarShow = true;
+    private boolean mToolbarIsShowing = true;
     private int mCurrentPosition = 0;
     private List<String> mPhotoPathList = new ArrayList<String>();
 
@@ -54,7 +54,7 @@ public class PhotoSelectedPreviewActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            ArrayList<String> list = extras.getStringArrayList(PsConstants.PHOTO_SELECTED_LIST);
+            ArrayList<String> list = extras.getStringArrayList(PsConstants.KEY_PHOTO_PATH_LIST);
             if (list != null) {
                 mPhotoPathList.addAll(list);
             }
@@ -116,8 +116,8 @@ public class PhotoSelectedPreviewActivity extends Activity {
 
     private void setResult() {
         Intent intent = new Intent();
-        intent.putStringArrayListExtra(PsConstants.PHOTO_SELECTED_LIST, (ArrayList<String>) mPhotoPathList);
-        setResult(PsConstants.RESULT_CODE_PHOTO_SELECTED_PREVIEW_ACTIVITY, intent);
+        intent.putStringArrayListExtra(PsConstants.KEY_PHOTO_PATH_LIST, (ArrayList<String>) mPhotoPathList);
+        setResult(RESULT_OK, intent);
     }
 
     /**
@@ -126,17 +126,17 @@ public class PhotoSelectedPreviewActivity extends Activity {
     private View.OnClickListener photoItemClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mIsToolbarShow) {
+            if (mToolbarIsShowing) {
                 full(true);
                 new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_preview_toolbar_translate_hidde)
                         .setInterpolator(new LinearInterpolator()).setFillAfter(true).startAnimation(mPhotoPreviewToolbar);
 
-                mIsToolbarShow = false;
+                mToolbarIsShowing = false;
             } else {
                 new PsAnimationUtils(getApplicationContext(), R.anim.ps_anim_preview_toolbar_translate_show)
                         .setInterpolator(new LinearInterpolator()).setFillAfter(true).startAnimation(mPhotoPreviewToolbar);
 
-                mIsToolbarShow = true;
+                mToolbarIsShowing = true;
                 full(false);
             }
         }

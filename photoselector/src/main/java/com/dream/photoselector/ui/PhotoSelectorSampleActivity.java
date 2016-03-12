@@ -19,14 +19,14 @@ import java.util.List;
 public class PhotoSelectorSampleActivity extends AppCompatActivity {
 
     private ViewPhotoSelector mViewPhotoSelector;
-    private static final int MAX_PIC_NUMBER = 9;
+    private static final int MAX_PHOTO_NUMBER = 9;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ps_activity_photo_selector_sample);
-        mViewPhotoSelector = new ViewPhotoSelector(this, MAX_PIC_NUMBER);
+        mViewPhotoSelector = new ViewPhotoSelector(this, MAX_PHOTO_NUMBER);
     }
 
 

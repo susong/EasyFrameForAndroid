@@ -56,27 +56,21 @@ import java.util.Locale;
  */
 public class ViewPhotoSelector {
 
-    // 请求相册
-    public static final int REQUEST_CODE_GET_IMAGE_BY_ALBUM = 0;
-    // 请求相机
-    public static final int REQUEST_CODE_GET_IMAGE_BY_CAMERA = 1;
-    // 添加图标标识
-    private static final String ADD_IMG = "add_img";
     private Activity mActivity;
     private Context mContext;
     private GridView mGridView;
-    private List<String> mList;
+    private List<String> mPhotoPathList;
     private ViewPhotoSelectorAdapter mAdapter;
-    private int mMaxPicNumber = 9;
+    private int mMaxPhotoNumber;
     private boolean mIsAppendFirst = false;
 
-    public ViewPhotoSelector(Context context, int maxPicNumber) {
-        this(context, maxPicNumber, false);
+    public ViewPhotoSelector(Context context, int maxPhotoNumber) {
+        this(context, maxPhotoNumber, false);
     }
 
-    public ViewPhotoSelector(Context context, int maxPicNumber, boolean isAppendFirst) {
+    public ViewPhotoSelector(Context context, int maxPhotoNumber, boolean isAppendFirst) {
         mContext = context;
-        mMaxPicNumber = maxPicNumber;
+        mMaxPhotoNumber = maxPhotoNumber;
         mIsAppendFirst = isAppendFirst;
         if (context instanceof Activity) {
             mActivity = (Activity) context;
@@ -88,61 +82,63 @@ public class ViewPhotoSelector {
     }
 
     private void init() {
-        mList = new ArrayList<>();
+        mPhotoPathList = new ArrayList<>();
         mGridView = (GridView) mActivity.getWindow().findViewById(R.id.gridView);
-        mList.add(ADD_IMG);
-        mAdapter = new ViewPhotoSelectorAdapter(mContext, mList);
+        mPhotoPathList.add(PsConstants.KEY_ADD_PHOTO_PS);
+        mAdapter = new ViewPhotoSelectorAdapter(mContext, mPhotoPathList);
         mGridView.setAdapter(mAdapter);
     }
 
     public List<String> getData() {
         List<String> list = new ArrayList<>();
-        list.addAll(mList);
-        if (list.contains(ADD_IMG)) {
-            list.remove(ADD_IMG);
+        list.addAll(mPhotoPathList);
+        if (list.contains(PsConstants.KEY_ADD_PHOTO_PS)) {
+            list.remove(PsConstants.KEY_ADD_PHOTO_PS);
         }
         PsLog.d(list.toString());
         return list;
     }
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_GET_IMAGE_BY_CAMERA) {
+        if (resultCode != Activity.RESULT_OK) {
+            return false;
+        }
+        if (requestCode == PsConstants.REQUEST_CODE_GET_PHOTO_BY_CAMERA) {
             PsLog.d("from camera : " + this.mCameraPhotoAbsolutePath);
             // 拍照
             if (mIsAppendFirst) {
-                mList.add(0, this.mCameraPhotoAbsolutePath);
+                mPhotoPathList.add(0, this.mCameraPhotoAbsolutePath);
             } else {
-                mList.add(mAdapter.getCount() - 1, this.mCameraPhotoAbsolutePath);
+                mPhotoPathList.add(mAdapter.getCount() - 1, this.mCameraPhotoAbsolutePath);
             }
-            if (mAdapter.getCount() > mMaxPicNumber) {
-                mList.remove(mMaxPicNumber);
+            if (mAdapter.getCount() > mMaxPhotoNumber) {
+                mPhotoPathList.remove(mMaxPhotoNumber);
             }
             mAdapter.notifyDataSetChanged();
             return true;
-        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_GET_IMAGE_BY_ALBUM) {
+        } else if (requestCode == PsConstants.REQUEST_CODE_PHOTO_SELECTOR_ACTIVITY) {
             // 图片库
-            List<PhotoModel> photoModelList = intent.getParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_LIST);
+            List<PhotoModel> photoModelList = intent.getParcelableArrayListExtra(PsConstants.KEY_PHOTO_MODEL_LIST);
             List<String> photoPathList = new ArrayList<String>();
             for (PhotoModel photo : photoModelList) {
                 photoPathList.add(photo.getOriginalPath());
             }
             if (mIsAppendFirst) {
-                mList.addAll(0, photoPathList);
+                mPhotoPathList.addAll(0, photoPathList);
             } else {
-                mList.addAll(mAdapter.getCount() - 1, photoPathList);
+                mPhotoPathList.addAll(mAdapter.getCount() - 1, photoPathList);
             }
-            if (mAdapter.getCount() > mMaxPicNumber) {
-                mList.remove(mMaxPicNumber);
+            if (mAdapter.getCount() > mMaxPhotoNumber) {
+                mPhotoPathList.remove(mMaxPhotoNumber);
             }
             mAdapter.notifyDataSetChanged();
             return true;
-        } else if (resultCode == PsConstants.RESULT_CODE_PHOTO_SELECTED_PREVIEW_ACTIVITY &&
-                requestCode == PsConstants.REQUEST_CODE_PHOTO_SELECTED_PREVIEW_ACTIVITY) {
-            List<String> photoPathList = intent.getStringArrayListExtra(PsConstants.PHOTO_SELECTED_LIST);
-            mList.clear();
-            mList.addAll(photoPathList);
-            if (mList.size() < mMaxPicNumber) {
-                mList.add(ADD_IMG);
+        } else if (requestCode == PsConstants.REQUEST_CODE_PHOTO_SELECTED_PREVIEW_ACTIVITY) {
+            List<String> photoPathList = intent.getStringArrayListExtra(PsConstants.KEY_PHOTO_PATH_LIST);
+            mPhotoPathList.clear();
+            mPhotoPathList.addAll(photoPathList);
+            if (mPhotoPathList.size() < mMaxPhotoNumber) {
+                mPhotoPathList.add(PsConstants.KEY_ADD_PHOTO_PS);
             }
             mAdapter.notifyDataSetChanged();
             return true;
@@ -182,7 +178,7 @@ public class ViewPhotoSelector {
         Uri uri = Uri.fromFile(out);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        mActivity.startActivityForResult(intent, REQUEST_CODE_GET_IMAGE_BY_CAMERA);
+        mActivity.startActivityForResult(intent, PsConstants.REQUEST_CODE_GET_PHOTO_BY_CAMERA);
     }
 
     //==============================================================================================
@@ -215,9 +211,9 @@ public class ViewPhotoSelector {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, PhotoSelectorActivity.class);
-                    intent.putExtra(PhotoSelectorActivity.KEY_MAX_SIZE, mMaxPicNumber);
-                    intent.putExtra(PhotoSelectorActivity.KEY_CURRENT_SIZE, mAdapter.getCount() - 1);
-                    mActivity.startActivityForResult(intent, REQUEST_CODE_GET_IMAGE_BY_ALBUM);
+                    intent.putExtra(PsConstants.KEY_MAX_SIZE_PS, mMaxPhotoNumber);
+                    intent.putExtra(PsConstants.KEY_CURRENT_SIZE_PS, mAdapter.getCount() - 1);
+                    mActivity.startActivityForResult(intent, PsConstants.REQUEST_CODE_PHOTO_SELECTOR_ACTIVITY);
                     mPopSelectAlbumPopupWindow.dismiss();
                 }
             });
@@ -290,7 +286,7 @@ public class ViewPhotoSelector {
 
             int columnWidth = getColumnWidth(mGridView);
             viewHolder.ivPhoto.setLayoutParams(new RelativeLayout.LayoutParams(columnWidth, columnWidth));
-            if (photoPath.equals(ADD_IMG)) {
+            if (photoPath.equals(PsConstants.KEY_ADD_PHOTO_PS)) {
                 viewHolder.ivDelete.setVisibility(View.GONE);
                 viewHolder.ivPhoto.setScaleType(ImageView.ScaleType.FIT_XY);
                 viewHolder.ivPhoto.setBackgroundColor(mContext.getResources().getColor(R.color.ps_base_background));
@@ -313,7 +309,7 @@ public class ViewPhotoSelector {
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
                         bundle.putInt(PsConstants.KEY_POSITION, position);
-                        bundle.putStringArrayList(PsConstants.PHOTO_SELECTED_LIST, (ArrayList<String>) getData());
+                        bundle.putStringArrayList(PsConstants.KEY_PHOTO_PATH_LIST, (ArrayList<String>) getData());
                         PsCommonUtils.launchActivityForResult(mActivity, PhotoSelectedPreviewActivity.class, PsConstants.REQUEST_CODE_PHOTO_SELECTED_PREVIEW_ACTIVITY, bundle);
                     }
                 });
@@ -324,8 +320,8 @@ public class ViewPhotoSelector {
                     public void onClick(View v) {
                         String remove = mList.remove(position);
                         PsLog.d("Remove photo : " + remove);
-                        if (mAdapter.getCount() == mMaxPicNumber - 1 && !mList.contains(ADD_IMG)) {
-                            mList.add(ADD_IMG);
+                        if (mAdapter.getCount() == mMaxPhotoNumber - 1 && !mList.contains(PsConstants.KEY_ADD_PHOTO_PS)) {
+                            mList.add(PsConstants.KEY_ADD_PHOTO_PS);
                         }
                         PsLog.d(mList.toString());
                         mAdapter.notifyDataSetChanged();
