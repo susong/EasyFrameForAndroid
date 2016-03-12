@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager_ps"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/photo_preview_toolbar_ps"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ps_layout_title_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/ps_transparent_background">
+
+        <ImageButton
+            android:id="@+id/ib_back_ps"
+            android:layout_width="@dimen/ps_layout_title_content_height"
+            android:layout_height="@dimen/ps_layout_title_content_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ps_selector_bg_back_arrow_white"
+            android:contentDescription="@null"
+            android:padding="20dp"
+            android:scaleType="centerInside"/>
+
+        <TextView
+            android:id="@+id/tv_line_ps"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/ib_back_ps"
+            android:layout_toRightOf="@+id/ib_back_ps"
+            android:background="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/tv_percent_ps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/tv_line_ps"
+            android:layout_toRightOf="@+id/tv_line_ps"
+            android:textColor="@android:color/white"
+            tools:text="1/10"/>
+
+        <ImageButton
+            android:id="@+id/ib_delete_ps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/ps_transparent"
+            android:contentDescription="@null"
+            android:padding="5dp"
+            android:src="@drawable/ps_delete_white"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

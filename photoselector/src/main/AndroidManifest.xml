@@ -9,6 +9,7 @@
         <activity android:name=".ui.PhotoSelectorActivity"/>
         <activity android:name=".ui.PhotoPreviewActivity"/>
         <activity android:name=".ui.PhotoSelectorSampleActivity"/>
+        <activity android:name=".ui.PhotoSelectedPreviewActivity"/>
     </application>
 
 </manifest>

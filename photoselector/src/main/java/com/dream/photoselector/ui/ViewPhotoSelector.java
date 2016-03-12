@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -25,6 +26,8 @@ import android.widget.Toast;
 
 import com.dream.photoselector.R;
 import com.dream.photoselector.model.PhotoModel;
+import com.dream.photoselector.util.PsCommonUtils;
+import com.dream.photoselector.util.PsConstants;
 import com.dream.photoselector.util.PsLog;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -103,10 +106,7 @@ public class ViewPhotoSelector {
     }
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (resultCode != Activity.RESULT_OK) {
-            return false;
-        }
-        if (requestCode == REQUEST_CODE_GET_IMAGE_BY_CAMERA) {
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_GET_IMAGE_BY_CAMERA) {
             PsLog.d("from camera : " + this.mCameraPhotoAbsolutePath);
             // 拍照
             if (mIsAppendFirst) {
@@ -119,20 +119,30 @@ public class ViewPhotoSelector {
             }
             mAdapter.notifyDataSetChanged();
             return true;
-        } else if (requestCode == REQUEST_CODE_GET_IMAGE_BY_ALBUM) {
+        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_GET_IMAGE_BY_ALBUM) {
             // 图片库
-            List<PhotoModel> models = intent.getParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_LIST);
-            List<String> images = new ArrayList<String>();
-            for (PhotoModel photo : models) {
-                images.add(photo.getOriginalPath());
+            List<PhotoModel> photoModelList = intent.getParcelableArrayListExtra(PhotoSelectorActivity.KEY_PHOTO_LIST);
+            List<String> photoPathList = new ArrayList<String>();
+            for (PhotoModel photo : photoModelList) {
+                photoPathList.add(photo.getOriginalPath());
             }
             if (mIsAppendFirst) {
-                mList.addAll(0, images);
+                mList.addAll(0, photoPathList);
             } else {
-                mList.addAll(mAdapter.getCount() - 1, images);
+                mList.addAll(mAdapter.getCount() - 1, photoPathList);
             }
             if (mAdapter.getCount() > mMaxPicNumber) {
                 mList.remove(mMaxPicNumber);
+            }
+            mAdapter.notifyDataSetChanged();
+            return true;
+        } else if (resultCode == PsConstants.RESULT_CODE_PHOTO_SELECTED_PREVIEW_ACTIVITY &&
+                requestCode == PsConstants.REQUEST_CODE_PHOTO_SELECTED_PREVIEW_ACTIVITY) {
+            List<String> photoPathList = intent.getStringArrayListExtra(PsConstants.PHOTO_SELECTED_LIST);
+            mList.clear();
+            mList.addAll(photoPathList);
+            if (mList.size() < mMaxPicNumber) {
+                mList.add(ADD_IMG);
             }
             mAdapter.notifyDataSetChanged();
             return true;
@@ -301,7 +311,10 @@ public class ViewPhotoSelector {
 
                     @Override
                     public void onClick(View v) {
-
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(PsConstants.KEY_POSITION, position);
+                        bundle.putStringArrayList(PsConstants.PHOTO_SELECTED_LIST, (ArrayList<String>) getData());
+                        PsCommonUtils.launchActivityForResult(mActivity, PhotoSelectedPreviewActivity.class, PsConstants.REQUEST_CODE_PHOTO_SELECTED_PREVIEW_ACTIVITY, bundle);
                     }
                 });
 
@@ -309,8 +322,8 @@ public class ViewPhotoSelector {
 
                     @Override
                     public void onClick(View v) {
-//                        mList.remove(position);
-                        PsLog.d("Remove photo : " + mList.remove(position).toString());
+                        String remove = mList.remove(position);
+                        PsLog.d("Remove photo : " + remove);
                         if (mAdapter.getCount() == mMaxPicNumber - 1 && !mList.contains(ADD_IMG)) {
                             mList.add(ADD_IMG);
                         }

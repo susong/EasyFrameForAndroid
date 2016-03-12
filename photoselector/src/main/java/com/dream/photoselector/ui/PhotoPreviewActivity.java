@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -41,8 +40,8 @@ public class PhotoPreviewActivity extends Activity {
     private TextView mTvPercent;
     private CheckBox mCbCheck;
     private Button mBtnConfirm;
-    protected int mCurrentPosition = 0;
-    protected boolean mIsToolbarShow = true;
+    private int mCurrentPosition = 0;
+    private boolean mIsToolbarShow = true;
     private String mConfirmStr;
 
     private int mMaxSize = 0;
@@ -70,11 +69,11 @@ public class PhotoPreviewActivity extends Activity {
         if (extras != null) {
             mMaxSize = getIntent().getIntExtra(PhotoSelectorActivity.KEY_MAX_SIZE, 0);
             mCurrentSize = getIntent().getIntExtra(PhotoSelectorActivity.KEY_CURRENT_SIZE, 0);
-            mCurrentPosition = extras.getInt(PhotoSelectorActivity.KEY_POSITION, 0);
+            mCurrentPosition = extras.getInt(PsConstants.KEY_POSITION, 0);
 //            mPhotoModelList = extras.getParcelableArrayList(PhotoSelectorActivity.KEY_PHOTO_LIST);
 //            mPhotoModelSelectorList = extras.getParcelableArrayList(PhotoSelectorActivity.KEY_PHOTO_SELECTOR_LIST);
-            boolean is_selector_preview = extras.getBoolean(PhotoSelectorActivity.KEY_IS_SELECTOR_PREVIEW, false);
-            if (is_selector_preview) {
+            boolean is_selected_preview = extras.getBoolean(PhotoSelectorActivity.KEY_IS_SELECTED_PREVIEW, false);
+            if (is_selected_preview) {
                 mPhotoModelList.addAll(PhotoSelectorActivity.mPhotoModelSelectorList);
             } else {
                 mPhotoModelList.addAll(PhotoSelectorActivity.mPhotoModelList);
@@ -103,7 +102,7 @@ public class PhotoPreviewActivity extends Activity {
             public void onPageSelected(int position) {
                 mCurrentPosition = position;
                 mTvPercent.setText((mCurrentPosition + 1) + "/" + mPhotoModelList.size());
-                Log.d("PhotoPreviewActivity", mPhotoModelList.get(mCurrentPosition).toString());
+                PsLog.d(mPhotoModelList.get(mCurrentPosition).toString());
                 mCbCheck.setChecked(mPhotoModelList.get(mCurrentPosition).isChecked());
             }
 
@@ -202,6 +201,7 @@ public class PhotoPreviewActivity extends Activity {
 
     /**
      * android 动态控制状态栏显示和隐藏的方法实例
+     *
      * @param enable 是否全屏
      */
     private void full(boolean enable) {

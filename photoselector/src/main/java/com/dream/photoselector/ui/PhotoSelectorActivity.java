@@ -40,21 +40,11 @@ import java.util.List;
 
 public class PhotoSelectorActivity extends Activity {
 
-
-    public static final int SINGLE_IMAGE = 1;
     public static final String KEY_MAX_SIZE = "key_max_size";
     public static final String KEY_CURRENT_SIZE = "key_current_size";
     public static final String KEY_PHOTO_LIST = "key_photo_list";
     public static final String KEY_PHOTO_SELECTOR_LIST = "key_photo_selector_list";
-    public static final String KEY_IS_SELECTOR_PREVIEW = "key_is_selector_preview";
-    public static final String KEY_POSITION = "key_position";
-
-    public static String mRecentPhotoStr = null;
-
-    public static boolean mIsFull;
-    public static int mMaxSize = 0;
-    private int mCurrentSize = 0;
-    private String mSureStr;
+    public static final String KEY_IS_SELECTED_PREVIEW = "key_is_selector_preview";
 
     private GridView mGvPhotos;
     private ListView mLvAlbum;
@@ -64,8 +54,14 @@ public class PhotoSelectorActivity extends Activity {
     private PhotoSelectorAdapter mPhotoSelectorAdapter;
     private AlbumAdapter mAlbumAdapter;
     private RelativeLayout mLayoutAlbum;
+    private int mCurrentSize = 0;
+    private String mSureStr;
+    public static String mRecentPhotoStr = null;
+    public static boolean mIsFull;
+    public static int mMaxSize = 0;
     public static List<PhotoModel> mPhotoModelList = new ArrayList<PhotoModel>();
     public static List<PhotoModel> mPhotoModelSelectorList = new ArrayList<PhotoModel>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +115,7 @@ public class PhotoSelectorActivity extends Activity {
                 Bundle bundle = new Bundle();
                 bundle.putInt(KEY_MAX_SIZE, mMaxSize);
                 bundle.putInt(KEY_CURRENT_SIZE, mCurrentSize);
-                bundle.putBoolean(KEY_IS_SELECTOR_PREVIEW, true);
+                bundle.putBoolean(KEY_IS_SELECTED_PREVIEW, true);
 //                bundle.putParcelableArrayList(KEY_PHOTO_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
 //                bundle.putParcelableArrayList(KEY_PHOTO_SELECTOR_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
                 PsCommonUtils.launchActivityForResult(PhotoSelectorActivity.this, PhotoPreviewActivity.class, PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_PREVIEW, bundle);
@@ -215,13 +211,13 @@ public class PhotoSelectorActivity extends Activity {
                     public void onItemClick(int position) {
                         Bundle bundle = new Bundle();
                         if (mTvAlbum.getText().toString().equals(mRecentPhotoStr)) {
-                            bundle.putInt(KEY_POSITION, position);
+                            bundle.putInt(PsConstants.KEY_POSITION, position);
                         } else {
-                            bundle.putInt(KEY_POSITION, position);
+                            bundle.putInt(PsConstants.KEY_POSITION, position);
                         }
                         bundle.putInt(KEY_MAX_SIZE, mMaxSize);
                         bundle.putInt(KEY_CURRENT_SIZE, mCurrentSize);
-                        bundle.putBoolean(KEY_IS_SELECTOR_PREVIEW, false);
+                        bundle.putBoolean(KEY_IS_SELECTED_PREVIEW, false);
 //                        bundle.putParcelableArrayList(KEY_PHOTO_LIST, (ArrayList<PhotoModel>) mPhotoModelList);
 //                        bundle.putParcelableArrayList(KEY_PHOTO_SELECTOR_LIST, (ArrayList<PhotoModel>) mPhotoModelSelectorList);
                         PsCommonUtils.launchActivityForResult(PhotoSelectorActivity.this, PhotoPreviewActivity.class, PsConstants.PHOTO_SELECTOR_REQUEST_PHOTO_PREVIEW, bundle);
