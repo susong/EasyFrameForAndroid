@@ -25,4 +25,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile project(':library')
+    compile files('libs/bugly_1.2.9_release.jar')
 }

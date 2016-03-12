@@ -3,6 +3,7 @@ package com.dream.sample;
 import android.app.Application;
 
 import com.dream.android_universal_image_loader.ImageLoaderHelper;
+import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * Author:      SuSong
@@ -16,7 +17,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        CrashReport.initCrashReport(getApplicationContext(), "900022242", false);
         ImageLoaderHelper.init(this);
     }
 }
