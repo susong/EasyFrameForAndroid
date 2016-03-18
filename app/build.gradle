@@ -9,6 +9,10 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
     buildTypes {
         release {
@@ -25,5 +29,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile project(':library')
-    compile files('libs/bugly_1.2.9_release.jar')
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新版本号,也可以指定明确的版本号,例如1.2.8
 }
